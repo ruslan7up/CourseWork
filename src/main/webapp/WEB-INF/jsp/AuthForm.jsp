@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="resources/css/jquery-1.12.4.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,7 +31,6 @@
 </head>
 
 <body>
-
 <div class="container">
 
     <form class="form-signin" action="users/greetings" method="get">

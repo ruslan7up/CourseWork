@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="resources/css/jquery-1.12.4.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,7 +58,16 @@
         </form>
     </div>
     <div class="child">
-        <button type="button">PRINT TABLE</button>
+        <button name="get">POST</button>
+    </div>
+    <div class="child">
+        <button name="get" onclick="">GET</button>
+    </div>
+    <div class="child">
+        <input id="resultat" name="test">
+    </div>
+    <div id="result">
+
     </div>
 <hr>
 </div>

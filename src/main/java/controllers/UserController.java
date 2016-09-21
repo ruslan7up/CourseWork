@@ -58,7 +58,16 @@ public class UserController {
         }
         return new ModelAndView("page403");
     }
-
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public ModelAndView test(@RequestParam  Map<String,Object> param,HttpSession hsr) {
+        String param1 = (String) param.get("test");
+        return new ModelAndView("test",new ModelMap("test",param1));
+    }
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public ModelAndView test2(@RequestParam  Map<String,Object> param,HttpSession hsr) {
+        String param1 = (String) param.get("test");
+        return new ModelAndView("test",new ModelMap("test",param1+"POST"));
+    }
     @RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
     public ModelAndView showAllUsers(@RequestParam Map<String,Object> param,HttpSession hsr) {
 
