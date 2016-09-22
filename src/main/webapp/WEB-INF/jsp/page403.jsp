@@ -22,7 +22,7 @@
     <link rel="stylesheet" media="screen" href="/resources/css/bootstrap-admin-theme-change-size.css">
 
     <!-- Bootstrap Error Page -->
-    <link rel="stylesheet" media="screen" href="resources/css/bootstrap-error-page.css">
+    <link rel="stylesheet" media="screen" href="/resources/css/bootstrap-error-page.css">
 </head>
 <body>
 
