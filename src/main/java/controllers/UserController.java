@@ -25,7 +25,7 @@ public class UserController {
     @Autowired
     private AccountServiceImpl accountService;
     @RequestMapping(value = "/authPage", method = RequestMethod.POST)
-    public ModelAndView greetings(@RequestParam Map<String,Object> map, HttpSession hsr)
+    public ModelAndView authorizeTheUser(@RequestParam Map<String,Object> map, HttpSession hsr)
     {
         if(!map.isEmpty()) {
                 String userName = (String) map.get("user");
@@ -59,52 +59,8 @@ public class UserController {
         return new ModelAndView("page403");
     }
     @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public ModelAndView test(@RequestParam  Map<String,Object> param,HttpSession hsr) {
+    public ModelAndView viewReqestTestPage(@RequestParam  Map<String,Object> param,HttpSession hsr) {
         String param1 = (String) param.get("test");
         return new ModelAndView("test",new ModelMap("test",param1));
-    }
-
-    @RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
-    public ModelAndView viewAdminPanel(@RequestParam Map<String,Object> param,HttpSession hsr) {
-
-        Account user = (Account) hsr.getAttribute("user");
-        if (user != null) {
-            ModelMap map = new ModelMap();
-            String byid = (String) param.get("byid");
-            String byname = (String) param.get("byname");
-            if (byid != null) {
-                try {
-                    Account account = accountService.getAccountByID(Integer.parseInt(byid));
-                    if (account != null) {
-                        List<Account> list = new ArrayList<>();
-                        list.add(account);
-                        map = new ModelMap();
-                        map.put("accounts", list);
-                        return new ModelAndView("AdminPanel", map);
-                    } else {
-                        return new ModelAndView("AdminPanel",map);
-                    }
-                } catch (NumberFormatException e)
-                {
-                    return new ModelAndView("AdminPanel",map);
-                }
-
-            } else if (byname != null) {
-                Account account = accountService.getAccountByLogin(byname);
-                if (account != null) {
-                    List<Account> list = new ArrayList<>();
-                    list.add(account);
-                    map = new ModelMap();
-                    map.put("accounts", list);
-                    return new ModelAndView("AdminPanel", map);
-                } else {
-                    return new ModelAndView("AdminPanel",map);
-                }
-            }
-            map.put("accounts", accountService.getAllUsers());
-            return new ModelAndView("AdminPanel", map);
-        } else {
-            return new ModelAndView("page403");
-        }
     }
 }
