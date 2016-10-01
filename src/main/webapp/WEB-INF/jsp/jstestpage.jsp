@@ -11,26 +11,47 @@
     <script src="/resources/js/jquery-3.1.0.min.js"></script>
 
     <script>
-        function myFunction (){
-            var n = $('#name').val();
-            var h = $('#phrase').val();
+        function getFunction (){
+            var p1 = $('#param1').val();
+            var p2 = $('#param2').val();
 
             $.ajax({
                 type:'get',
                 url:'http://localhost:8080/tests/test2GET',
                 data:{
-                    name:n,
-                    hello:h
+                    param1:p1,
+                    param2:p2
                 },
                 success: function(data){
                     $('#insertHere').append(data);
                 },
                 error: function () {
                     $('#insertHere').append('ERROR');
+
                 }
             });
         }
+        function postFunction() {
+            var p1 = $('#param1').val();
+            var p2 = $('#param2').val();
 
+            $.ajax(
+                    {
+                        type:'post',
+                        url:'http://localhost:8080/tests/test2POST',
+                        data:{
+                            param1:p1,
+                            param2:p2
+                        },
+                        success: function (data) {
+                            $('#insertHere').append(data);
+                        },
+                        error: function () {
+                            $('#insertHere').append('ERROR');
+                        }
+                    }
+            );
+        }
 
         function deleteRow(trId) {
             $(trId).remove();
@@ -39,24 +60,12 @@
     </script>
 </head>
 <body>
-<input id="name" type="text">
-<input id="phrase" type="text">
-<button onclick="myFunction()" > asdfdsf </button>
+<input id="param1" type="text">
+<input id="param2" type="text">
+<button onclick="getFunction()" > GET FUNC </button>
+<button onclick="postFunction()"> POST FUNC </button>
+    <h1>ТЕКСТ</h1>
+    <h1 id="insertHere"></h1>
 
-<table>
-    <thead>
-    <tr>
-        <th>
-            name
-        </th>
-        <th>
-            Hello
-        </th>
-    </tr>
-    </thead>
-    <tbody id="insertHere">
-
-    </tbody>
-</table>
 </body>
 </html>

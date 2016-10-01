@@ -28,7 +28,7 @@ public class ControllerForTests {
         ModelMap modelMap = new ModelMap();
         modelMap.put("param1",param1);
         modelMap.put("param2",param2);
-        return new ModelAndView("jsreturnmessage");
+        return new ModelAndView("jsreturnmessage",modelMap);
     }
     @RequestMapping(value = "/test2POST", method = RequestMethod.POST)
     public ModelAndView viewTest2POST(@RequestParam Map<String,Object> map)
@@ -38,6 +38,6 @@ public class ControllerForTests {
         ModelMap modelMap = new ModelMap();
         modelMap.put("param1",param1);
         modelMap.put("param2",param2);
-        return new ModelAndView("jsreturnmessage");
+        return new ModelAndView("jsreturnmessage",modelMap);
     }
 }
