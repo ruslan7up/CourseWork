@@ -23,6 +23,6 @@ public class GoodsController {
     @RequestMapping(value = "/goodsPanel", method = RequestMethod.GET)
     public ModelAndView viewGoodsTable(@RequestParam Map<String,String> map, HttpSession hsr)
     {
-        return new ModelAndView();
+        return new ModelAndView("goodsPage");
     }
 }

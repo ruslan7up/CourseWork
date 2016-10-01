@@ -8,9 +8,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-
+    <script src="/resources/js/jquery-3.1.0.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,7 +38,7 @@
 <body>
 <div class="parent">
     <div class="child">
-        <form action="/users/adminPanel">
+        <form action="/admin/allPanels">
             <select name="sort">
                 <option name="sortbyID">Сортировать по ID</option>
                 <option name="sortbyLogin">Сортировать по Логину</option>
@@ -47,12 +48,12 @@
     </div>
 
     <div class="child">
-        <form action="/users/adminPanel">
+        <form action="/admin/allPanels">
             <input type="text" id="id" placeholder="SEARCH BY ID" name="byid" required>
             <button type="submit">SEARCH</button></form>
     </div>
     <div class="child">
-        <form action="/users/adminPanel">
+        <form action="/admin/allPanels">
             <input type="text" id="name" placeholder="SEARCH BY NAME" name="byname" required>
             <button type="submit">SEARCH</button>
         </form>
@@ -66,7 +67,7 @@
         <tr>
             <th>ID</th>
             <th>Логин</th>
-            <th>Пароль (MD5)</th>
+            <th>Пароль <font color="red">(MD5-HASHED)</font></th>
         </tr>
         </thead>
         <tbody>
