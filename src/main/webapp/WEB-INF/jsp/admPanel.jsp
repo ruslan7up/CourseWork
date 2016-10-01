@@ -58,6 +58,7 @@
         </form>
     </div>
 <hr>
+    <center><h1>Пользователи</h1></center>
 </div>
 <div class="bs-example">
     <table class="table">
@@ -74,6 +75,35 @@
                 <td>${account.getId()}</td>
                 <td>${account.getLogin()}</td>
                 <td>${account.getPass()}</td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
+<hr>
+<center><h1>Товары</h1></center>
+</div>
+<div class="bs-example">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Категория</th>
+            <th>Наименование</th>
+            <th>Количество</th>
+            <th>Розничная цена</th>
+            <th>Оптовая цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="goods" items="${goods}">
+            <tr>
+                <td>${goods.getId()}</td>
+                <td>${goods.getCategory()}</td>
+                <td>${goods.getName()}</td>
+                <td>${goods.getQuantity()}</td>
+                <td>${goods.getRetailPrice()}</td>
+                <td>${goods.getWholesalePrice()}</td>
             </tr>
         </c:forEach>
         </tbody>

@@ -58,9 +58,4 @@ public class UserController {
         }
         return new ModelAndView("page403");
     }
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public ModelAndView viewReqestTestPage(@RequestParam  Map<String,Object> param,HttpSession hsr) {
-        String param1 = (String) param.get("test");
-        return new ModelAndView("test",new ModelMap("test",param1));
-    }
 }

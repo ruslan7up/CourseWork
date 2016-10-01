@@ -1,6 +1,7 @@
 package controllers;
 
 import data.impl.AccountServiceImpl;
+import data.impl.GoodsServiceImpl;
 import domains.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,9 @@ import java.util.Map;
 public class AdminController {
     @Autowired
     private AccountServiceImpl accountService;
-    @RequestMapping(value = "/usersPanel", method = RequestMethod.GET)
+    @Autowired
+    private GoodsServiceImpl goodsService;
+    @RequestMapping(value = "/allPanels", method = RequestMethod.GET)
     public ModelAndView viewAdminPanel(@RequestParam Map<String,Object> param, HttpSession hsr) {
 
         Account user = (Account) hsr.getAttribute("user");
@@ -61,6 +64,7 @@ public class AdminController {
                 }
             }
             map.put("accounts", accountService.getAllUsers());
+            map.put("goods", goodsService.getAllGoods() );
             return new ModelAndView("admPanel", map);
         } else {
             return new ModelAndView("page403");
