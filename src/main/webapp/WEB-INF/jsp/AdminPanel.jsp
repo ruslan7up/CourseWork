@@ -57,18 +57,6 @@
             <button type="submit">SEARCH</button>
         </form>
     </div>
-    <div class="child">
-        <button name="get">POST</button>
-    </div>
-    <div class="child">
-        <button name="get" onclick="">GET</button>
-    </div>
-    <div class="child">
-        <input id="resultat" name="test">
-    </div>
-    <div id="result">
-
-    </div>
 <hr>
 </div>
 <div class="bs-example">

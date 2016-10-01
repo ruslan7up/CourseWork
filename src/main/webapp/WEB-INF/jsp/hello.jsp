@@ -11,9 +11,9 @@
     <title>Приветствие</title>
 </head>
 <body>
-
+<h1><font color="green">Access Granted</font></h1>
 <h1>Привет, ${name}</h1>
-<h1>Ваш пароль, ${password}</h1>
-<h1>Ваш SESSIONID : ${sessionID}</h1>
+<h1>Твой пароль, ${password}</h1>
+<h1>Твой SESSIONID : ${sessionID}</h1>
 </body>
 </html>

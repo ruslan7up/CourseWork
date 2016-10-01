@@ -9,15 +9,20 @@
 
             $.ajax({
                 type:'get',
-                url:'http://localhost:8080/users/greetings',
+                url:'http://localhost:8080/users/authPage',
                 data:{
                     user:n,
                     pass:h
                 },
                 success: function(data){
                     $('#testdiv').html(data);
+                },
+                error: function()
+                {
+                    $('#testdiv').text("ERROR");
                 }
             });
+
 
 
 
@@ -28,13 +33,17 @@
 
             $.ajax({
                 type:'post',
-                url:'http://localhost:8080/FistApp/hello',
+                url:'http://localhost:8080/users/authPage',
                 data:{
-                    name:n,
-                    hello:h
+                    user:n,
+                    pass:h
                 },
                 success: function(data){
                     $('#testdiv').html(data);
+                },
+                error: function()
+                {
+                    $('#testdiv').htmlText("ERROR");
                 }
             });
 
@@ -46,8 +55,8 @@
 <body>
 <input id="name" type="text">
 <input id="phrase" type="text">
-<button onclick="myFunction()" > asdfdsf </button>
-<button onclick="myPOSTFunction()" > POST Button </button>
+<button onclick="myFunction()" > GET request </button>
+<button onclick="myPOSTFunction()" > POST request </button>
 
 <div id="testdiv"></div>
 </body>

@@ -24,7 +24,7 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private AccountServiceImpl accountService;
-    @RequestMapping(value = "/greetings", method = RequestMethod.GET)
+    @RequestMapping(value = "/authPage", method = RequestMethod.POST)
     public ModelAndView greetings(@RequestParam Map<String,Object> map, HttpSession hsr)
     {
         if(!map.isEmpty()) {
@@ -63,13 +63,9 @@ public class UserController {
         String param1 = (String) param.get("test");
         return new ModelAndView("test",new ModelMap("test",param1));
     }
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public ModelAndView test2(@RequestParam  Map<String,Object> param,HttpSession hsr) {
-        String param1 = (String) param.get("test");
-        return new ModelAndView("test",new ModelMap("test",param1+"POST"));
-    }
+
     @RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
-    public ModelAndView showAllUsers(@RequestParam Map<String,Object> param,HttpSession hsr) {
+    public ModelAndView viewAdminPanel(@RequestParam Map<String,Object> param,HttpSession hsr) {
 
         Account user = (Account) hsr.getAttribute("user");
         if (user != null) {

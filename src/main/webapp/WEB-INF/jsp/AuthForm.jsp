@@ -32,7 +32,7 @@
 <body>
 <div class="container">
 
-    <form class="form-signin" action="users/greetings" method="get">
+    <form class="form-signin" action="users/authPage" method="post">
         <h2 class="form-signin-heading">Пожалуйста авторизуйтесь</h2>
         <label for="user"  class="sr-only">Логин</label>
         <input type="text" id="user" name="user" class="form-control" placeholder="Логин" required autofocus>
