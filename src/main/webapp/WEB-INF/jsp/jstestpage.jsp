@@ -52,11 +52,10 @@
                     }
             );
         }
-
         function deleteRow(trId) {
             $(trId).remove();
-
         }
+
     </script>
 </head>
 <body>
@@ -64,7 +63,7 @@
 <input id="param2" type="text">
 <button onclick="getFunction()" > GET FUNC </button>
 <button onclick="postFunction()"> POST FUNC </button>
-    <h1>ТЕКСТ</h1>
+    <h1 id="mytext">ТЕКСТ</h1>
     <h1 id="insertHere"></h1>
 
 </body>

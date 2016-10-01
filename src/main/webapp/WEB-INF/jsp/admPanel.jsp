@@ -16,8 +16,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Панель администратора</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/resources/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <style type="text/css">
         .bs-example{
             margin: 20px;
@@ -34,6 +34,11 @@
             display: inline-block;
         }
     </style>
+    <script>
+        function updateTable() {
+
+        }
+    </script>
 </head>
 <body>
 <div class="parent">
@@ -62,7 +67,7 @@
     <center><h1>Пользователи</h1></center>
 </div>
 <div class="bs-example">
-    <table class="table">
+    <table class="table" id="usertable">
         <thead>
         <tr>
             <th>ID</th>
@@ -85,7 +90,7 @@
 <center><h1>Товары</h1></center>
 </div>
 <div class="bs-example">
-    <table class="table">
+    <table class="table" id="goodstable">
         <thead>
         <tr>
             <th>ID</th>

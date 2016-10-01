@@ -32,6 +32,7 @@ public class AdminController {
         Account user = (Account) hsr.getAttribute("user");
         if (user != null) {
             ModelMap map = new ModelMap();
+            map.put("accserivce",accountService);
             String byid = (String) param.get("byid");
             String byname = (String) param.get("byname");
             if (byid != null) {
