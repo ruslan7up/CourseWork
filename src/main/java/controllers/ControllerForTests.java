@@ -20,7 +20,7 @@ public class ControllerForTests {
     {
         return new ModelAndView("jstestpage");
     }
-    @RequestMapping(value = "/test2GET", method = RequestMethod.GET)
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
     public ModelAndView viewTest2GET(@RequestParam Map<String,Object> map)
     {
         String param1 = (String) map.get("param1");
@@ -30,7 +30,7 @@ public class ControllerForTests {
         modelMap.put("param2",param2);
         return new ModelAndView("jsreturnmessage",modelMap);
     }
-    @RequestMapping(value = "/test2POST", method = RequestMethod.POST)
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
     public ModelAndView viewTest2POST(@RequestParam Map<String,Object> map)
     {
         String param1 = (String) map.get("param1");

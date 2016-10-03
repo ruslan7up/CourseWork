@@ -8,108 +8,78 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-
+<script scr="/resources/js/jquery-3.1.0.min.js"></script>
 <html lang="en">
 <head>
-    <script src="/resources/js/jquery-3.1.0.min.js"></script>
+    <title>DEBUG</title>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Панель администратора</title>
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="/resources/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <style type="text/css">
-        .bs-example{
-            margin: 20px;
-        }
-        CSS
-
-        .parent
-        {
-            border: 1px solid black;
-            height: 200px;
-        }
-        .child
-        {
-            display: inline-block;
-        }
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <script src="/resources/js/jquery-3.1.0.min.js"></script>
+    <script src="/resources/js/bootstrap.min.js"></script>
+    <style>
+        .col_01 img {width:100%;}
+        .div1 {display:inline-block}
     </style>
-    <script>
-        function updateTable() {
-
-        }
-    </script>
 </head>
 <body>
-<div class="parent">
-    <div class="child">
-        <form action="/admin/allPanels">
-            <select name="sort">
-                <option name="sortbyID">Сортировать по ID</option>
-                <option name="sortbyLogin">Сортировать по Логину</option>
-            </select>
-            <button type="submit">SORT</button>
-        </form>
+<div class="div1">
+<form action="/admin/allPanels" method="get">
+    <input type="text" id="id" placeholder="ID" required name="byid">
+    <button type="submit">SORT</button>
+</form>
     </div>
-
-    <div class="child">
-        <form action="/admin/allPanels">
-            <input type="text" id="id" placeholder="SEARCH BY ID" name="byid" required>
-            <button type="submit">SEARCH</button></form>
-    </div>
-    <div class="child">
-        <form action="/admin/allPanels">
-            <input type="text" id="name" placeholder="SEARCH BY NAME" name="byname" required>
-            <button type="submit">SEARCH</button>
-        </form>
-    </div>
-<hr>
-    <center><h1>Пользователи</h1></center>
+    <div class="div1">
+<form action="/admin/allPanels" method="get">
+    <input type="text" id="login" placeholder="LOGIN" required name="byname">
+    <button type="submit">SORT</button>
+</form>
 </div>
-<div class="bs-example">
-    <table class="table" id="usertable">
+<hr>
+<h1>USERS</h1>
+<div class="col_01">
+    <table class="table table-hover">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Логин</th>
-            <th>Пароль <font color="red">(MD5-HASHED)</font></th>
+            <th>Login</th>
+            <th>Password(MD5)</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="account" items="${accounts}">
+        <c:forEach var="acc" items="${accounts}">
             <tr>
-                <td>${account.getId()}</td>
-                <td>${account.getLogin()}</td>
-                <td>${account.getPass()}</td>
+                <td>${acc.getId()}</td>
+                <td>${acc.getLogin()}</td>
+                <td>${acc.getPass()}</td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
 </div>
 <hr>
-<center><h1>Товары</h1></center>
-</div>
-<div class="bs-example">
-    <table class="table" id="goodstable">
+<h1>GOODS</h1>
+<div class="col_01">
+    <table class="table table-hover">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Категория</th>
-            <th>Наименование</th>
-            <th>Количество</th>
-            <th>Розничная цена</th>
-            <th>Оптовая цена</th>
+            <th>CATEGORY</th>
+            <th>NAME</th>
+            <th>QUANTITY</th>
+            <th>RETAIL PRICE</th>
+            <th>WHOLESALE PRICE</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="goods" items="${goods}">
+        <c:forEach var="good" items="${goods}">
             <tr>
-                <td>${goods.getId()}</td>
-                <td>${goods.getCategory()}</td>
-                <td>${goods.getName()}</td>
-                <td>${goods.getQuantity()}</td>
-                <td>${goods.getRetailPrice()}</td>
-                <td>${goods.getWholesalePrice()}</td>
+                <td>${good.getId()}</td>
+                <td>${good.getCategory()}</td>
+                <td>${good.getName()}</td>
+                <td>${good.getQuantity()}</td>
+                <td>${good.getRetailPrice()}</td>
+                <td>${good.getWholesalePrice()}</td>
             </tr>
         </c:forEach>
         </tbody>
@@ -118,3 +88,4 @@
 <hr>
 </body>
 </html>
+
