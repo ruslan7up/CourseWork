@@ -33,11 +33,11 @@ public class AdminController {
         if (user != null) {
             ModelMap map = new ModelMap();
             map.put("accserivce",accountService);
-            String byid = (String) param.get("byid");
-            String byname = (String) param.get("byname");
-            if (byid != null) {
+            String id = (String) param.get("id");
+            String login = (String) param.get("login");
+            if (id != null) {
                 try {
-                    Account account = accountService.getAccountByID(Integer.parseInt(byid));
+                    Account account = accountService.getAccountByID(Long.parseLong(id));
                     if (account != null) {
                         List<Account> list = new ArrayList<>();
                         list.add(account);
@@ -52,8 +52,8 @@ public class AdminController {
                     return new ModelAndView("admPanel",map);
                 }
 
-            } else if (byname != null) {
-                Account account = accountService.getAccountByLogin(byname);
+            } else if (login != null) {
+                Account account = accountService.getAccountByLogin(login);
                 if (account != null) {
                     List<Account> list = new ArrayList<>();
                     list.add(account);

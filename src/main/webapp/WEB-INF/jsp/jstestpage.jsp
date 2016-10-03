@@ -56,8 +56,8 @@
                     }
             );
         }
-        function deleteTable(trId) {
-           $(trId).remove();
+        function deleteTable() {
+           $('#tableid').remove();
         }
         function addRowToTable() {
             <c:forEach var="i" begin="3" end="6">
@@ -68,6 +68,19 @@
         function loadAllUsers()
         {
 
+            $.ajax(
+                    {
+                        type:'get',
+                        url:'http://localhost:8080/table/users',
+                        data:{
+
+                        },
+                        success: function (data) {
+                            $('#tableid').remove();
+                            $('#tableid').html(data);
+                        }
+                    }
+            )
         }
     </script>
 </head>
@@ -78,26 +91,25 @@
 <button onclick="postFunction()"> POST FUNC </button>
 <button onclick="deleteTable()"> TEST DELETE TABLE ROWS FUNC</button>
 <button onclick="addRowToTable()"> TEST ADD ROW FUNC</button>
-<table border="1" id="usertable">
+<button onclick="loadAllUsers()">LOAD</button>
+<table border="1">
     <thead>
     <tr>
-        <th>dsfsd</th>
-        <th>sdfdsf</th>
-        <th>sdfdsf</th>
+        <th>ID</th>
+        <th>Login</th>
+        <th>Password</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="tableid">
     <tr id="sdfsdf">
         <td>1</td>
         <td>sqad</td>
         <td>fdvdfcvb</td>
-        <td><button type="submit" onclick="deleteTable(this)">DEL</button> </td>
     </tr>
     <tr id="wefsd">
         <td>2</td>
         <td>sqfsdgvdf</td>
         <td>dfgdfhgj</td>
-        <td><button type="submit" onclick="deleteTable(this)">DEL</button> </td>
     </tr>
     </tbody>
 </table>
