@@ -3,6 +3,7 @@ package controllers;
 import data.impl.GoodsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,8 @@ public class GoodsController {
     @RequestMapping(value = "/goodsPanel", method = RequestMethod.GET)
     public ModelAndView viewGoodsTable(@RequestParam Map<String,String> map, HttpSession hsr)
     {
+        ModelMap modelMap = new ModelMap();
+        modelMap.put("goods",goodsService.getAllGoods());
         return new ModelAndView("goodsPage");
     }
 }

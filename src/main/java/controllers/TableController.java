@@ -3,6 +3,7 @@ package controllers;
 import data.impl.AccountServiceImpl;
 import data.impl.GoodsServiceImpl;
 import domains.Account;
+import domains.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -60,6 +61,45 @@ public class TableController {
                 ModelMap modelMap = new ModelMap();
                 modelMap.put("accounts", accountService.getAllUsers());
                 return new ModelAndView("userTable",modelMap);
+            }
+        }
+        return new ModelAndView("page403");
+    }
+    @RequestMapping(value = "/goods", method = RequestMethod.GET)
+    public ModelAndView getGoodsTable(@RequestParam Map<String,Object> param,HttpSession hsr)
+    {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null)
+        {
+            String id = (String) param.get("byid");
+            String name = (String) param.get("byname");
+            if(id!=null)
+            {
+                List<Goods> list = new ArrayList<>();
+                try
+                {
+                    list.add(goodsService.getGoodsByID(Long.parseLong(id)));
+                } catch (NumberFormatException e)
+                {
+                    return new ModelAndView("goodsTable");
+                }
+                ModelMap modelMap = new ModelMap();
+                modelMap.put("goods",list);
+                return new ModelAndView("goodsTable",modelMap);
+            }
+            if(name!=null)
+            {
+                List<Goods> list = new ArrayList<>();
+                list.add(goodsService.getGoodsByName(name));
+                ModelMap modelMap = new ModelMap();
+                modelMap.put("goods",list);
+                return new ModelAndView("goodsTable",modelMap);
+            }
+            if(name==null && id==null)
+            {
+                ModelMap modelMap = new ModelMap();
+                modelMap.put("goods",goodsService.getAllGoods());
+                return new ModelAndView("goodsTable",modelMap);
             }
         }
         return new ModelAndView("page403");

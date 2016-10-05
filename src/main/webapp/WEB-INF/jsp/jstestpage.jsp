@@ -11,8 +11,9 @@
 <html>
 <head>
     <script src="/resources/js/jquery-3.1.0.min.js"></script>
-
+    <title>TEST PANEL</title>
     <script>
+        var selectedRow;
         function getFunction (){
             var p1 = $('#param1').val();
             var p2 = $('#param2').val();
@@ -61,7 +62,7 @@
         }
         function addRowToTable() {
             <c:forEach var="i" begin="3" end="6">
-            $('#usertable').append('<tr id="${i}"><td>${i}</td><td>number ${i}</td><td>dsffd ${i}</td></tr>')
+            $('#tableid').append('<tr onclick="selectRow(this)"><td>${i}</td><td>number ${i}</td><td>dsffd ${i}</td></tr>')
             </c:forEach>
 
         }
@@ -76,22 +77,31 @@
 
                         },
                         success: function (data) {
-                            $('#tableid').remove();
                             $('#tableid').html(data);
                         }
                     }
             )
         }
+        function selectRow(row)
+        {
+            $(selectedRow).css({"background-color": "white","font-weight":"400"});
+            selectedRow=row;
+            $(selectedRow).css({"background-color" : "red","font-weight":"600"});
+        }
+        function deleteRow() {
+            selectedRow.remove();
+        }
     </script>
 </head>
 <body>
-<input id="param1" type="text">
-<input id="param2" type="text">
+<input id="param1" type="text" placeholder="MESSAGE 1">
+<input id="param2" type="text" placeholder="MESSAGE 2">
 <button onclick="getFunction()" > GET FUNC </button>
 <button onclick="postFunction()"> POST FUNC </button>
 <button onclick="deleteTable()"> TEST DELETE TABLE ROWS FUNC</button>
 <button onclick="addRowToTable()"> TEST ADD ROW FUNC</button>
 <button onclick="loadAllUsers()">LOAD</button>
+<button onclick="deleteRow()">DELETE SELECTED ROW</button>
 <table border="1">
     <thead>
     <tr>
@@ -101,19 +111,14 @@
     </tr>
     </thead>
     <tbody id="tableid">
-    <tr id="sdfsdf">
+    <tr onclick="selectRow(this)">
         <td>1</td>
-        <td>sqad</td>
-        <td>fdvdfcvb</td>
-    </tr>
-    <tr id="wefsd">
-        <td>2</td>
-        <td>sqfsdgvdf</td>
-        <td>dfgdfhgj</td>
+        <td>TEST</td>
+        <td>MESSAGE</td>
     </tr>
     </tbody>
 </table>
-    <h1 id="status">STATUS</h1>
+    <h1 id="status">THE STATUS OF THE LAST REQUEST</h1>
     <h1 id="insertHere"></h1>
 
 </body>

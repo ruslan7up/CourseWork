@@ -7,13 +7,10 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<c:forEach var="good" items="${goods}">
-    <tr>
-        <td>${good.getId()}</td>
-        <td>${good.getCategory()}</td>
-        <td>${good.getName()}</td>
-        <td>${good.getQuantity()}</td>
-        <td>${good.getRetailPrice()}</td>
-        <td>${good.getWholesalePrice()}</td>
+<c:forEach var="acc" items="${accounts}">
+    <tr onclick="selectRow(this)">
+        <td>${acc.getId()}</td>
+        <td>${acc.getLogin()}</td>
+        <td>${acc.getPass()}</td>
     </tr>
 </c:forEach>
