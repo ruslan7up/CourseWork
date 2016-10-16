@@ -1,19 +1,25 @@
 package controllers;
 
+import data.comparators.byID;
+import data.comparators.byName;
+import data.comparators.byQuantity;
 import data.impl.AccountServiceImpl;
 import data.impl.GoodsServiceImpl;
 import domains.Account;
 import domains.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -73,29 +79,67 @@ public class TableController {
         {
             String id = (String) param.get("byid");
             String name = (String) param.get("byname");
+            String sorttype = (String) param.get("sort");
             if(id!=null)
             {
-                List<Goods> list = new ArrayList<>();
-                try
-                {
-                    list.add(goodsService.getGoodsByID(Long.parseLong(id)));
-                } catch (NumberFormatException e)
-                {
-                    return new ModelAndView("goodsTable");
-                }
                 ModelMap modelMap = new ModelMap();
-                modelMap.put("goods",list);
+                modelMap.put("goods",goodsService.getGoodsByID(Long.parseLong(id)));
                 return new ModelAndView("goodsTable",modelMap);
             }
             if(name!=null)
             {
-                List<Goods> list = new ArrayList<>();
-                list.add(goodsService.getGoodsByName(name));
+                List<Goods> list = goodsService.getGoodsByName(name);
                 ModelMap modelMap = new ModelMap();
                 modelMap.put("goods",list);
                 return new ModelAndView("goodsTable",modelMap);
             }
-            if(name==null && id==null)
+            if(sorttype!=null)
+            {
+                List<Goods> list = goodsService.getAllGoods();
+                ModelMap modelMap = new ModelMap();
+                if(sorttype.equals("byid"))
+                {
+                    list.sort(new byID());
+                    modelMap.put("goods",list);
+                    return new ModelAndView("goodsTable",modelMap);
+                }
+                if(sorttype.equals("byiddesc"))
+                {
+                    list.sort(new byID());
+                    Collections.reverse(list);
+                    modelMap.put("goods",list);
+                    return new ModelAndView("goodsTable",modelMap);
+                }
+                if(sorttype.equals("byname"))
+                {
+                    list.sort(new byName());
+                    modelMap.put("goods",list);
+                    return new ModelAndView("goodsTable",modelMap);
+                }
+                if(sorttype.equals("bynamedesc"))
+                {
+                    list.sort(new byName());
+                    Collections.reverse(list);
+                    modelMap.put("goods",list);
+                    return new ModelAndView("goodsTable",modelMap);
+                }
+                if(sorttype.equals("byquantity"))
+                {
+                    list.sort(new byQuantity());
+                    modelMap.put("goods",list);
+                    return new ModelAndView("goodsTable",modelMap);
+                }
+                if(sorttype.equals("byquantitydesc"))
+                {
+                    list.sort(new byQuantity());
+                    Collections.reverse(list);
+                    modelMap.put("goods",list);
+                    return new ModelAndView("goodsTable",modelMap);
+                }
+                modelMap.put("goods",list);
+                return new ModelAndView("goodsTable",modelMap);
+            }
+            if(name==null && id==null && sorttype==null)
             {
                 ModelMap modelMap = new ModelMap();
                 modelMap.put("goods",goodsService.getAllGoods());
@@ -104,4 +148,34 @@ public class TableController {
         }
         return new ModelAndView("page403");
     }
+    @RequestMapping(value = "/goodsAdd", method = RequestMethod.GET)
+    public void addGoods(@RequestParam Map<String,Object> param,HttpSession hsr)
+    {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null)
+        {
+            String vc = (String) param.get("vc");
+            String category = (String) param.get("category");
+            String name = (String) param.get("name");
+            String quantity = (String) param.get("quantity");
+            String rp = (String) param.get("rp");
+            String wp = (String) param.get("wp");
+            if(vc!=null && category!=null && name!=null && quantity!=null && rp!=null && wp!=null)
+            {
+                goodsService.addGoods(Integer.parseInt(vc),category,name,Long.parseLong(quantity),Double.parseDouble(rp),Double.parseDouble(wp));
+            }
+        }
+    }
+    @RequestMapping(value = "/goodsRemove", method = RequestMethod.GET)
+    public void removeGoods(@RequestParam String param, HttpSession hsr, HttpServletResponse response)
+    {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null)
+        {
+            int vc = Integer.parseInt(param);
+            goodsService.removeGoods(vc);
+        }
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
+
 }

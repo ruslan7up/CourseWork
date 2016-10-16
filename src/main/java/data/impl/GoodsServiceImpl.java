@@ -4,6 +4,7 @@ import data.GoodsService;
 import domains.Goods;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Repository
 public class GoodsServiceImpl implements GoodsService{
+
     private Session session;
 
     @Autowired
@@ -23,25 +25,25 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
-    public Goods getGoodsByID(long id) {
+    public List<Goods> getGoodsByID(long id) {
         Query query = session.createQuery("FROM Goods WHERE id=:GoodsID");
         query.setParameter("GoodsID",id);
         List<Goods> list = query.list();
         if(!list.isEmpty())
         {
-            return list.get(0);
+            return list;
         }
         return null;
     }
 
     @Override
-    public Goods getGoodsByName(String name) {
+    public List<Goods> getGoodsByName(String name) {
         Query query = session.createQuery("FROM Goods WHERE name=:GoodsName");
         query.setParameter("GoodsName",name);
         List<Goods> list = query.list();
         if(!list.isEmpty())
         {
-            return list.get(0);
+            return list;
         }
         return null;
     }
@@ -51,5 +53,28 @@ public class GoodsServiceImpl implements GoodsService{
         Query query = session.createQuery("FROM Goods");
         List<Goods> list = query.list();
         return list;
+    }
+
+    @Override
+    public void removeGoods(long id) {
+        Query query = session.createQuery("Delete Goods WHERE id=:GoodsID");
+        query.setParameter("GoodsID",id);
+        query.executeUpdate();
+    }
+
+    @Override
+    public void addGoods(int vc,String category, String name, long quantity, double retailPrice, double wholesalePrice) {
+        Transaction tx = session.beginTransaction();
+        Goods goods = new Goods();
+        goods.setId(2323);
+        goods.setCategory("sdfgdg");
+        goods.setName("fdgdfg");
+        goods.setQuantity(456);
+        goods.setRetailPrice(500);
+        goods.setWholesalePrice(450);
+        session.save(goods);
+        tx.commit();
+        session.flush();
+        session.close();
     }
 }

@@ -60,4 +60,14 @@ public class AccountServiceImpl implements AccountService {
         return list;
     }
 
+    @Override
+    public void removeAccount(long id) {
+        Query query = session.createQuery("DELETE from Account WHERE id=:AccountID");
+        query.setParameter("AccountID",id);
+    }
+
+    @Override
+    public void addAccount(long login, String pass) {
+
+    }
 }

@@ -22,10 +22,10 @@ public class GoodsController {
     private GoodsServiceImpl goodsService;
 
     @RequestMapping(value = "/goodsPanel", method = RequestMethod.GET)
-    public ModelAndView viewGoodsTable(@RequestParam Map<String,String> map, HttpSession hsr)
+    public ModelAndView viewGoodsTable(HttpSession hsr)
     {
         ModelMap modelMap = new ModelMap();
         modelMap.put("goods",goodsService.getAllGoods());
-        return new ModelAndView("goodsPage");
+        return new ModelAndView("goodsPage",modelMap);
     }
 }

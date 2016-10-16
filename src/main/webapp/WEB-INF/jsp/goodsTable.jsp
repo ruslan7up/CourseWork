@@ -7,9 +7,18 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${goods == null}">
+    <tr>
+        <td colspan="7" style="text-align: center;" >Товаров нет</td>
+    </tr>
+</c:if>
 <c:forEach var="good" items="${goods}">
     <tr>
-        <td>${good.getId()}</td>
+        <td align="center">
+            <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
+            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+        </td>
+        <td class="hidden-xs">${good.getId()}</td>
         <td>${good.getCategory()}</td>
         <td>${good.getName()}</td>
         <td>${good.getQuantity()}</td>

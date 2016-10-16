@@ -8,7 +8,9 @@ import java.util.List;
  * Created by ruslan on 01.10.2016.
  */
 public interface GoodsService {
-    public Goods getGoodsByID(long id);
-    public Goods getGoodsByName(String name);
+    public List<Goods> getGoodsByID(long id);
+    public List<Goods> getGoodsByName(String name);
     public List<Goods> getAllGoods();
+    public void removeGoods(long id);
+    public void addGoods(int vc,String category,String name, long quantity, double retailPrice, double wholesalePrice);
 }
