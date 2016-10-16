@@ -206,7 +206,7 @@
                                 <a class="btn btn-danger"><em class="fa fa-trash" onclick="showDeleteModal(this)"></em></a>
                             </td>
                             <td class="hidden-xs">${good.getId()}</td>
-                            <td>${good.getCategory()}</td>
+                            <td style="height: 50px">${good.getCategory()}</td>
                             <td>${good.getName()}</td>
                             <td>${good.getQuantity()}</td>
                             <td>${good.getRetailPrice()}</td>
