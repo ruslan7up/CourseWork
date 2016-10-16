@@ -77,7 +77,7 @@
                  }
          )
      }
-     function deleteGoods()
+     function deleteGoods(goods)
      {
          var vc = $('#vc').val();
          $.ajax({
@@ -109,7 +109,8 @@
                          quantity:"34",
                          rp:"331",
                          wp:"228"
-                     }
+                     },
+                     success: getAllGoods()
                  }
          )
      }
@@ -121,14 +122,7 @@
          newWin.print();
          newWin.close();
      }
-     function selectRow(tr) {
-             $(tr).css({"background-color": "white"});
-     }
-     function deleteRows()
-     {
-
-     }
-     function showDeleteModal(goods)
+     function showDeleteModal()
      {
          $('#deleteModal').modal('show');
      }
@@ -149,7 +143,7 @@
 </nav>
 
 <div style="text-align: center;">
-<button onclick="getAllGoods()" >LOAD ALL GOODS</button>
+<button onclick="getAllGoods()" >REFRESH</button>
 <select name="sort" id="sort" onchange="sortGoods(this)">
     <option disabled selected>Сортировать по....</option>
     <option value="byid" >По ID</option>
@@ -201,12 +195,12 @@
                         <tbody id="goodstable">
                         <c:forEach var="good" items="${goods}">
                         <tr >
-                            <td align="center">
-                                <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                                <a class="btn btn-danger"><em class="fa fa-trash" onclick="showDeleteModal(this)"></em></a>
+                            <td align="center" style="width: 100px;">
+                                <a class="btn btn-default" title="Редактировать"><em class="fa fa-pencil"></em></a>
+                                <a class="btn btn-danger" title="Удалить"><em class="fa fa-trash" onclick="showDeleteModal(this)"></em></a>
                             </td>
-                            <td class="hidden-xs">${good.getId()}</td>
-                            <td style="height: 50px">${good.getCategory()}</td>
+                            <td class="hidden-xs" style="height: 50px;">${good.getId()}</td>
+                            <td >${good.getCategory()}</td>
                             <td>${good.getName()}</td>
                             <td>${good.getQuantity()}</td>
                             <td>${good.getRetailPrice()}</td>
@@ -238,7 +232,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary">Удалить</button>
+                <button type="button" class="btn btn-danger">Удалить</button>
             </div>
         </div>
     </div>

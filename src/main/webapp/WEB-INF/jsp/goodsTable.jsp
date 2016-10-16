@@ -14,12 +14,12 @@
 </c:if>
 <c:forEach var="good" items="${goods}">
     <tr>
-        <td align="center">
-            <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+        <td align="center" style="width: 100px;">
+            <a class="btn btn-default" title="Редактировать"><em class="fa fa-pencil"></em></a>
+            <a class="btn btn-danger" title="Удалить"><em class="fa fa-trash" onclick="showDeleteModal(this)"></em></a>
         </td>
-        <td class="hidden-xs">${good.getId()}</td>
-        <td>${good.getCategory()}</td>
+        <td class="hidden-xs" style="height: 50px;">${good.getId()}</td>
+        <td >${good.getCategory()}</td>
         <td>${good.getName()}</td>
         <td>${good.getQuantity()}</td>
         <td>${good.getRetailPrice()}</td>

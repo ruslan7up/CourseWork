@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -57,24 +58,31 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Override
     public void removeGoods(long id) {
-        Query query = session.createQuery("Delete Goods WHERE id=:GoodsID");
-        query.setParameter("GoodsID",id);
-        query.executeUpdate();
-    }
+        try {
+            Query query = session.createQuery("Delete Goods WHERE id=:GoodsID");
+            query.setParameter("GoodsID", id);
+            query.executeUpdate();
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
 
+    }
+    @Transactional
     @Override
     public void addGoods(int vc,String category, String name, long quantity, double retailPrice, double wholesalePrice) {
-        Transaction tx = session.beginTransaction();
-        Goods goods = new Goods();
-        goods.setId(2323);
-        goods.setCategory("sdfgdg");
-        goods.setName("fdgdfg");
-        goods.setQuantity(456);
-        goods.setRetailPrice(500);
-        goods.setWholesalePrice(450);
-        session.save(goods);
-        tx.commit();
-        session.flush();
-        session.close();
+        try {
+            Goods goods = new Goods();
+            goods.setId(2323);
+            goods.setCategory("sdfgdg");
+            goods.setName("fdgdfg");
+            goods.setQuantity(456);
+            goods.setRetailPrice(500);
+            goods.setWholesalePrice(450);
+            session.saveOrUpdate(goods);
+        } catch (Exception e) {
+            System.out.println(e.getClass().getSimpleName()+" "+e.getMessage());
+
+        }
     }
 }

@@ -149,7 +149,7 @@ public class TableController {
         return new ModelAndView("page403");
     }
     @RequestMapping(value = "/goodsAdd", method = RequestMethod.GET)
-    public void addGoods(@RequestParam Map<String,Object> param,HttpSession hsr)
+    public void addGoods(@RequestParam Map<String,Object> param,HttpSession hsr,HttpServletResponse response)
     {
         Account account = (Account) hsr.getAttribute("user");
         if(account!=null)
@@ -164,6 +164,7 @@ public class TableController {
             {
                 goodsService.addGoods(Integer.parseInt(vc),category,name,Long.parseLong(quantity),Double.parseDouble(rp),Double.parseDouble(wp));
             }
+            response.setStatus(HttpServletResponse.SC_OK);
         }
     }
     @RequestMapping(value = "/goodsRemove", method = RequestMethod.GET)
