@@ -22,23 +22,24 @@
     <title>Авторизация</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="resources/css/signin.css" rel="stylesheet">
+    <link href="/resources/css/signin.css" rel="stylesheet">
 
 </head>
 
 <body>
 <div class="container">
 
-    <form class="form-signin" action="users/authPage" method="post">
+    <form class="form-signin" action="/users/authPage" method="post">
         <h2 class="form-signin-heading">Пожалуйста авторизуйтесь</h2>
         <label for="user"  class="sr-only">Логин</label>
         <input type="text" id="user" name="user" class="form-control" placeholder="Логин" required autofocus>
         <label for="pass" class="sr-only">Пароль</label>
         <input type="password" id="pass" name="pass" class="form-control" placeholder="Пароль" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+        <label for="button" style="color: red">${authresult}</label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="button">Войти</button>
     </form>
 
 </div> <!-- /container -->

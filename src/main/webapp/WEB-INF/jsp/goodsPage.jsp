@@ -15,6 +15,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <script src="/resources/js/jquery-3.1.0.min.js"></script>
     <script src="/resources/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-image: url(http://blacktie.co/demo/premium/dashio/frontend/demos/sliderbg_01.png); /* Путь к фоновому изображению */
+            background-size: 100% 100%;
+        }
+    </style>
 </head>
 
 <script>
@@ -126,6 +132,10 @@
      {
          $('#deleteModal').modal('show');
      }
+     function showaddGoodsModal()
+     {
+         $('#addModal').modal('show');
+     }
 </script>
 <body>
 <nav class="navbar navbar-inverse">
@@ -134,10 +144,10 @@
             <a class="navbar-brand" href="#">Курсовая</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Добавить товар</a></li>
-            <li><a href="#">Page 2</a></li>
-            <li><a href="#">Page 3</a></li>
+            <li class="active"><a href="#">Главная</a></li>
+            <li><a href="#">Страница 1</a></li>
+            <li><a href="#">Страница 2</a></li>
+            <li><a href="#">Страница 3</a></li>
         </ul>
     </div>
 </nav>
@@ -175,7 +185,7 @@
                             <h3 class="panel-title">Panel Heading</h3>
                         </div>
                         <div class="col col-xs-6 text-right">
-                            <button type="button" class="btn btn-sm btn-primary btn-create" >Добавить</button>
+                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="showaddGoodsModal()">Добавить</button>
                         </div>
                     </div>
                 </div>
@@ -233,6 +243,39 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
                 <button type="button" class="btn btn-danger">Удалить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="addModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Добавление товара</h4>
+            </div>
+            <div class="modal-body">
+                <label for="goodsvc">Артикул</label>
+                <input type="number" min="1" id="goodsvc" placeholder="Артикул" class="form-control">
+                <br>
+                <label for="goodscategory" >Категория</label>
+                <input type="text" id="goodscategory" placeholder="Категория" class="form-control">
+                <br>
+                <label for="goodsname" >Название товара</label>
+                <input type="text" id="goodsname" placeholder="Название" class="form-control">
+                <br>
+                <label for="goodsquantity" >Количество</label>
+                <input type="number" min="0" id="goodsquantity" placeholder="Количество" class="form-control">
+                <br>
+                <label for="goodsrp" >Розничная цена</label>
+                <input type="number" min="0" id="goodsrp" placeholder="Розничная цена" class="form-control">
+                <br>
+                <label for="goodswp" >Оптовая цена</label>
+                <input type="number" min="0" id="goodswp" placeholder="Оптовая цена" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-success">Добавить</button>
             </div>
         </div>
     </div>

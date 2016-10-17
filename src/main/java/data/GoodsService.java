@@ -11,6 +11,6 @@ public interface GoodsService {
     public List<Goods> getGoodsByID(long id);
     public List<Goods> getGoodsByName(String name);
     public List<Goods> getAllGoods();
-    public void removeGoods(long id);
+    public void removeGoods(long id) throws Exception;
     public void addGoods(int vc,String category,String name, long quantity, double retailPrice, double wholesalePrice);
 }

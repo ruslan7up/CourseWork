@@ -58,17 +58,20 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Override
     public void removeGoods(long id) {
+        Transaction tr = session.getTransaction();
         try {
+            tr.begin();
             Query query = session.createQuery("Delete Goods WHERE id=:GoodsID");
             query.setParameter("GoodsID", id);
             query.executeUpdate();
+            tr.commit();
         } catch (Exception e)
         {
+            tr.rollback();
             System.out.println(e.getMessage());
         }
-
     }
-    @Transactional
+
     @Override
     public void addGoods(int vc,String category, String name, long quantity, double retailPrice, double wholesalePrice) {
         try {

@@ -36,14 +36,14 @@
                     <h4 class="text-danger">Access denied</h4>
                 </div>
                 <div class="text-center">
-                    <h3><small>Choose an option below</small></h3>
+                    <h3><small>Основные страницы ниже</small></h3>
                 </div>
                 <hr>
                 <ul class="pager">
-                    <li><a href="about.html">&larr; About</a></li>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="ui-and-interface.html">UI & Interface</a></li>
-                    <li><a href="error-pages.html">Other error pages &rarr;</a></li>
+                    <li><a href="">&larr; Страница 1</a></li>
+                    <li><a href="">Страница 2</a></li>
+                    <li><a href="">Страница 3</a></li>
+                    <li><a href="">Страница 4 &rarr;</a></li>
                 </ul>
             </div>
         </div>
@@ -56,7 +56,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <footer role="contentinfo">
-                    <p class="left">КУРСАЧ</p>
+                    <p class="left">Курсовая работа</p>
                     <p class="right">&copy; 2016 <a href="https://vk.com/ruslanw" target="_blank">VK</a></p>
                 </footer>
             </div>

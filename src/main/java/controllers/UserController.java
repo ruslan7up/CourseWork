@@ -1,6 +1,7 @@
 package controllers;
 
 import data.impl.AccountServiceImpl;
+import data.impl.GoodsServiceImpl;
 import domains.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +26,10 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private AccountServiceImpl accountService;
+    @Autowired
+    private GoodsServiceImpl goodsService;
     @RequestMapping(value = "/authPage", method = RequestMethod.POST)
-    public ModelAndView authorizeTheUser(@RequestParam Map<String,Object> map, HttpSession hsr)
+    public ModelAndView authorizeTheUserPOST(@RequestParam Map<String,Object> map, HttpSession hsr, HttpServletResponse response)
     {
         if(!map.isEmpty()) {
                 String userName = (String) map.get("user");
@@ -35,26 +39,36 @@ public class UserController {
                 {
                     if(password.equals(account.getPass()))
                     {
-                        ModelMap modelMap = new ModelMap();
-                        modelMap.put("name", userName);
-                        modelMap.put("password", password);
-                        String sessionID = RequestContextHolder.currentRequestAttributes().getSessionId();
-                        modelMap.put("sessionID", sessionID);
                         hsr.setAttribute("user", new Account(1L, userName, password));
-                        return new ModelAndView("hello", modelMap);
+                        try {
+                            response.sendRedirect("http://localhost:8080/goods/goodsPanel");
+                        } catch (Exception e)
+                        {
+
+                        }
+                        return new ModelAndView("goodsPage");
                     } else
                     {
-                        return new ModelAndView("page403");
+                        ModelMap modelMap = new ModelMap();
+                        modelMap.put("authresult","Ошибка! Пожалуйста, проверьте правильность написания логина и пароля.");
+                        return new ModelAndView("AuthForm",modelMap);
                     }
+                } else
+                {
+                    ModelMap modelMap = new ModelMap();
+                    modelMap.put("authresult","Ошибка! Пожалуйста, проверьте правильность написания логина и пароля.");
+                    return new ModelAndView("AuthForm",modelMap);
                 }
         } else if(hsr.getAttribute("user")!=null)
         {
-            Account account = (Account) hsr.getAttribute("user");
             ModelMap modelMap = new ModelMap();
-            modelMap.put("name",account.getLogin());
-            modelMap.put("password",account.getPass());
-            modelMap.put("sessionID",RequestContextHolder.currentRequestAttributes().getSessionId());
-            return new ModelAndView("hello",modelMap);
+            modelMap.put("goods",goodsService.getAllGoods());
+            try {
+                response.sendRedirect("http://localhost:8080/goods/goodsPanel");
+            } catch (Exception e)
+            {
+            }
+            return new ModelAndView("goodsPage",modelMap);
         }
         return new ModelAndView("page403");
     }
