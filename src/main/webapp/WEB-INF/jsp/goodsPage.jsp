@@ -123,7 +123,7 @@
      }
      function printTable()
      {
-         var divToPrint=document.getElementById("table");
+         var divToPrint=document.getElementById("goods");
          newWin= window.open("");
          newWin.document.write(divToPrint.outerHTML);
          newWin.print();
@@ -189,7 +189,7 @@
                         </div>
                         <div class="col col-xs-6 text-right">
 
-                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="">Распечатать</button>
+                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="printTable()">Распечатать</button>
                             <button type="button" class="btn btn-sm btn-primary btn-create" onclick="showaddGoodsModal()">Добавить</button>
                         </div>
                     </div>
