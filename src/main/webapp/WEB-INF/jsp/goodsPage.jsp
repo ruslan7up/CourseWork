@@ -15,17 +15,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <script src="/resources/js/jquery-3.1.0.min.js"></script>
     <script src="/resources/js/bootstrap.min.js"></script>
+    <script src="/resources/js/jquery.tablesorter.js"></script>
     <style>
         body {
             background-image: url(http://blacktie.co/demo/premium/dashio/frontend/demos/sliderbg_01.png); /* Путь к фоновому изображению */
             background-size: 100% 100%;
         }
     </style>
+
 </head>
 
 <script>
-    var selectedRows = [];
-
     function getAllGoods() {
         $.ajax(
                 {
@@ -33,6 +33,7 @@
                     url:'http://localhost:8080/table/goods',
                     success: function (data) {
                         $('#goodstable').html(data);
+                        $('#goodstable').refresh();
                     }
                 }
         )
@@ -83,7 +84,7 @@
                  }
          )
      }
-     function deleteGoods(goods)
+     function deleteGoods()
      {
          var vc = $('#vc').val();
          $.ajax({
@@ -128,13 +129,16 @@
          newWin.print();
          newWin.close();
      }
-     function showDeleteModal()
+     function showDeleteModal(info)
      {
          $('#deleteModal').modal('show');
      }
      function showaddGoodsModal()
      {
          $('#addModal').modal('show');
+     }
+     function showEditModal(info) {
+         $('#editModal').modal('show');
      }
 </script>
 <body>
@@ -153,7 +157,6 @@
 </nav>
 
 <div style="text-align: center;">
-<button onclick="getAllGoods()" >REFRESH</button>
 <select name="sort" id="sort" onchange="sortGoods(this)">
     <option disabled selected>Сортировать по....</option>
     <option value="byid" >По ID</option>
@@ -182,32 +185,34 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col col-xs-6">
-                            <h3 class="panel-title">Panel Heading</h3>
+                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="getAllGoods()"><em class="glyphicon glyphicon-refresh"></em></button>
                         </div>
                         <div class="col col-xs-6 text-right">
+
+                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="">Распечатать</button>
                             <button type="button" class="btn btn-sm btn-primary btn-create" onclick="showaddGoodsModal()">Добавить</button>
                         </div>
                     </div>
                 </div>
                 <div class="panel-body" >
-                    <table class="table table-striped table-bordered table-list" >
+                    <table class="table table-striped table-bordered table-list" id="goods">
                         <thead>
                         <tr>
                             <th><em class="fa fa-cog"></em></th>
                             <th class="hidden-xs">Артикул</th>
-                            <th>Категория</th>
+                            <th >Категория</th>
                             <th width="25%">Название</th>
-                            <th>Количество</th>
-                            <th>Розничная цена</th>
-                            <th>Оптовая цена</th>
+                            <th >Количество</th>
+                            <th >Розничная цена</th>
+                            <th >Оптовая цена</th>
                         </tr>
                         </thead>
                         <tbody id="goodstable">
                         <c:forEach var="good" items="${goods}">
                         <tr >
                             <td align="center" style="width: 100px;">
-                                <a class="btn btn-default" title="Редактировать"><em class="fa fa-pencil"></em></a>
-                                <a class="btn btn-danger" title="Удалить"><em class="fa fa-trash" onclick="showDeleteModal(this)"></em></a>
+                                <button type="button" class="btn btn-default" title="Редактировать" onclick="showEditModal(this)"><em class="fa fa-pencil"></em></button>
+                                <button type="button" class="btn btn-danger" title="Удалить" onclick="showDeleteModal(this)"><em class="fa fa-trash" ></em></button>
                             </td>
                             <td class="hidden-xs" style="height: 50px;">${good.getId()}</td>
                             <td >${good.getCategory()}</td>
@@ -218,6 +223,17 @@
                         </tr>
                         </c:forEach>
                         </tbody>
+                        <thead>
+                        <tr>
+                            <th><em class="fa fa-cog" ></em></th>
+                            <th class="hidden-xs">Артикул</th>
+                            <th >Категория</th>
+                            <th width="25%">Название</th>
+                            <th >Количество</th>
+                            <th >Розничная цена</th>
+                            <th >Оптовая цена</th>
+                        </tr>
+                        </thead>
                     </table>
 
                 </div>
@@ -228,7 +244,11 @@
         </div>
     </div>
 </div>
-
+<script type="text/javascript">
+    $(function(){
+        $('#goods').tablesorter();
+    });
+</script>
 <div id="deleteModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -272,6 +292,39 @@
                 <br>
                 <label for="goodswp" >Оптовая цена</label>
                 <input type="number" min="0" id="goodswp" placeholder="Оптовая цена" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-success">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="editModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Добавление товара</h4>
+            </div>
+            <div class="modal-body">
+                <label for="egoodsvc">Артикул</label>
+                <input disabled type="number" min="1" id="egoodsvc" placeholder="Артикул" class="form-control">
+                <br>
+                <label for="egoodscategory" >Категория</label>
+                <input type="text" id="egoodscategory" placeholder="Категория" class="form-control">
+                <br>
+                <label for="egoodsname" >Название товара</label>
+                <input type="text" id="egoodsname" placeholder="Название" class="form-control">
+                <br>
+                <label for="egoodsquantity" >Количество</label>
+                <input type="number" min="0" id="egoodsquantity" placeholder="Количество" class="form-control">
+                <br>
+                <label for="egoodsrp" >Розничная цена</label>
+                <input type="number" min="0" id="egoodsrp" placeholder="Розничная цена" class="form-control">
+                <br>
+                <label for="egoodswp" >Оптовая цена</label>
+                <input type="number" min="0" id="egoodswp" placeholder="Оптовая цена" class="form-control">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>

@@ -72,4 +72,23 @@ public class UserController {
         }
         return new ModelAndView("page403");
     }
+    @RequestMapping(value = "/authPage", method = RequestMethod.GET)
+    public ModelAndView authorizeTheUserGET(@RequestParam Map<String,Object> map, HttpSession hsr, HttpServletResponse response)
+    {
+         if(hsr.getAttribute("user")!=null)
+        {
+            ModelMap modelMap = new ModelMap();
+            modelMap.put("goods",goodsService.getAllGoods());
+            try {
+                response.sendRedirect("http://localhost:8080/goods/goodsPanel");
+            } catch (Exception e)
+            {
+            }
+            return new ModelAndView("goodsPage",modelMap);
+        } else
+         {
+             return new ModelAndView("AuthForm");
+         }
+    }
+
 }
