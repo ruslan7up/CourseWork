@@ -15,7 +15,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <script src="/resources/js/jquery-3.1.0.min.js"></script>
     <script src="/resources/js/bootstrap.min.js"></script>
-    <script src="/resources/js/jquery.tablesorter.js"></script>
     <style>
         body {
             background-image: url(http://blacktie.co/demo/premium/dashio/frontend/demos/sliderbg_01.png); /* Путь к фоновому изображению */
@@ -157,23 +156,8 @@
 </nav>
 
 <div style="text-align: center;">
-<select name="sort" id="sort" onchange="sortGoods(this)">
-    <option disabled selected>Сортировать по....</option>
-    <option value="byid" >По ID</option>
-    <option value="byiddesc" >По ID (В обратном)</option>
-    <option value="byname" >По Имени</option>
-    <option value="bynamedesc" >По Имени (В обратном)</option>
-    <option value="byquantity">По Количеству</option>
-    <option value="byquantitydesc">По Количеству(В обратном)</option>
-</select>
-        <input type="number" id="id" required placeholder="ID" min="1">
-        <button onclick="searchbyID()">Искать</button>
-        <input type="text" id="name" required placeholder="NAME">
-        <button onclick="searchbyName()">Искать</button>
         <input type="number" id="vc" required placeholder="VENDOR CODE" min="1">
         <button onclick="deleteGoods()">Удалить</button>
-        <button onclick="printTable()">Распечатать</button>
-        <button onclick="addGoods()">ADD</button>
 </div>
 
 
@@ -184,11 +168,24 @@
             <div class="panel panel-default panel-table">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col col-xs-6">
+                        <div class="col col-xs-6" style="width: auto !important;">
                             <button type="button" class="btn btn-sm btn-primary btn-create" onclick="getAllGoods()"><em class="glyphicon glyphicon-refresh"></em></button>
-                        </div>
-                        <div class="col col-xs-6 text-right">
 
+                        </div>
+                        <div class="col col-xs-6 text-right" style="width: auto !important;">
+                            <input class="form-control" type="number" id="id" required placeholder="Артикул товара" min="1" style="width: 200px;display: inline-block;">
+                            <button onclick="searchbyID()" class="btn btn-sm btn-primary btn-create">Искать</button>
+                            <input type="text" class="form-control" id="name" required placeholder="Название товара" style="width: 200px;display: inline-block;">
+                            <button onclick="searchbyName()"  type="button" class="btn btn-sm btn-primary btn-create" >Искать</button>
+                            <select class="form-control" name="sort" id="sort" onchange="sortGoods(this)" style="width: 200px;display: inline-block">
+                                <option disabled selected>Сортировать по....</option>
+                                <option value="byid" >По ID</option>
+                                <option value="byiddesc" >По ID (В обратном)</option>
+                                <option value="byname" >По Имени</option>
+                                <option value="bynamedesc" >По Имени (В обратном)</option>
+                                <option value="byquantity">По Количеству</option>
+                                <option value="byquantitydesc">По Количеству(В обратном)</option>
+                            </select>
                             <button type="button" class="btn btn-sm btn-primary btn-create" onclick="printTable()">Распечатать</button>
                             <button type="button" class="btn btn-sm btn-primary btn-create" onclick="showaddGoodsModal()">Добавить</button>
                         </div>
@@ -208,20 +205,7 @@
                         </tr>
                         </thead>
                         <tbody id="goodstable">
-                        <c:forEach var="good" items="${goods}">
-                        <tr >
-                            <td align="center" style="width: 100px;">
-                                <button type="button" class="btn btn-default" title="Редактировать" onclick="showEditModal(this)"><em class="fa fa-pencil"></em></button>
-                                <button type="button" class="btn btn-danger" title="Удалить" onclick="showDeleteModal(this)"><em class="fa fa-trash" ></em></button>
-                            </td>
-                            <td class="hidden-xs" style="height: 50px;">${good.getId()}</td>
-                            <td >${good.getCategory()}</td>
-                            <td>${good.getName()}</td>
-                            <td>${good.getQuantity()}</td>
-                            <td>${good.getRetailPrice()}</td>
-                            <td>${good.getWholesalePrice()}</td>
-                        </tr>
-                        </c:forEach>
+                        <%@include file="goodsTable.jsp"%>
                         </tbody>
                         <thead>
                         <tr>
@@ -244,11 +228,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(function(){
-        $('#goods').tablesorter();
-    });
-</script>
+
 <div id="deleteModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">

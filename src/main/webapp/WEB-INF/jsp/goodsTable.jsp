@@ -15,8 +15,8 @@
 <c:forEach var="good" items="${goods}">
     <tr>
         <td align="center" style="width: 100px;">
-            <a class="btn btn-default" title="Редактировать"><em class="fa fa-pencil"></em></a>
-            <a class="btn btn-danger" title="Удалить"><em class="fa fa-trash" onclick="showDeleteModal(this)"></em></a>
+            <a class="btn btn-default" title="Редактировать" onclick="showEditModal(this)"><em class="fa fa-pencil"></em></a>
+            <a class="btn btn-danger" title="Удалить" onclick="showDeleteModal(this)"><em class="fa fa-trash" ></em></a>
         </td>
         <td class="hidden-xs" style="height: 50px;">${good.getId()}</td>
         <td >${good.getCategory()}</td>
