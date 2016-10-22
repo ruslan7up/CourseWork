@@ -162,9 +162,17 @@ public class TableController {
             String wp = (String) param.get("wp");
             if(vc!=null && category!=null && name!=null && quantity!=null && rp!=null && wp!=null)
             {
-                goodsService.addGoods(Integer.parseInt(vc),category,name,Long.parseLong(quantity),Double.parseDouble(rp),Double.parseDouble(wp));
+                boolean addStatus;
+                addStatus=goodsService.addGoods(Integer.parseInt(vc),category,name,Long.parseLong(quantity),Double.parseDouble(rp),Double.parseDouble(wp));
+                if(addStatus==true)
+                {
+                    response.setStatus(HttpServletResponse.SC_OK);
+                } else {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
             }
-            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
     @RequestMapping(value = "/goodsRemove", method = RequestMethod.GET)
@@ -174,9 +182,18 @@ public class TableController {
         if(account!=null)
         {
             int vc = Integer.parseInt(param);
-            goodsService.removeGoods(vc);
+            boolean removeStatus;
+            removeStatus=goodsService.removeGoods(vc);
+            if(removeStatus==true)
+            {
+                response.setStatus(HttpServletResponse.SC_OK);
+            } else
+            {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
-        response.setStatus(HttpServletResponse.SC_OK);
     }
 
 }

@@ -1,6 +1,7 @@
 package data.impl;
 
 import data.GoodsService;
+import domains.Account;
 import domains.Goods;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -57,7 +58,7 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
-    public void removeGoods(long id) {
+    public boolean removeGoods(long id) {
         Transaction tr = session.getTransaction();
         try {
             tr.begin();
@@ -65,27 +66,34 @@ public class GoodsServiceImpl implements GoodsService{
             query.setParameter("GoodsID", id);
             query.executeUpdate();
             tr.commit();
+            return true;
         } catch (Exception e)
         {
             tr.rollback();
             System.out.println(e.getMessage());
+            return false;
         }
     }
 
     @Override
-    public void addGoods(int vc,String category, String name, long quantity, double retailPrice, double wholesalePrice) {
+    public boolean addGoods(int vc,String category, String name, long quantity, double retailPrice, double wholesalePrice) {
+        Transaction tr = session.getTransaction();
         try {
+            tr.begin();
             Goods goods = new Goods();
-            goods.setId(2323);
-            goods.setCategory("sdfgdg");
-            goods.setName("fdgdfg");
-            goods.setQuantity(456);
-            goods.setRetailPrice(500);
-            goods.setWholesalePrice(450);
-            session.saveOrUpdate(goods);
+            goods.setId(vc);
+            goods.setCategory(category);
+            goods.setName(name);
+            goods.setQuantity(quantity);
+            goods.setRetailPrice(retailPrice);
+            goods.setWholesalePrice(wholesalePrice);
+            session.save(goods);
+            tr.commit();
+            return true;
         } catch (Exception e) {
-            System.out.println(e.getClass().getSimpleName()+" "+e.getMessage());
-
+            tr.rollback();
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 }

@@ -12,11 +12,11 @@
         <td colspan="7" style="text-align: center;" >Товаров нет</td>
     </tr>
 </c:if>
-<c:forEach var="good" items="${goods}">
+<c:forEach var="good" items="${goods}" varStatus="loop">
     <tr>
         <td align="center" style="width: 100px;">
             <a class="btn btn-default" title="Редактировать" onclick="showEditModal(this)"><em class="fa fa-pencil"></em></a>
-            <a class="btn btn-danger" title="Удалить" onclick="showDeleteModal(this)"><em class="fa fa-trash" ></em></a>
+            <a class="btn btn-danger" title="Удалить" onclick="showDeleteModal(${good.getId()})"><em class="fa fa-trash" ></em></a>
         </td>
         <td class="hidden-xs" style="height: 50px;">${good.getId()}</td>
         <td >${good.getCategory()}</td>

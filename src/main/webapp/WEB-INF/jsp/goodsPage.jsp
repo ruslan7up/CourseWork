@@ -25,6 +25,7 @@
 </head>
 
 <script>
+    var selectedGoods;
     function getAllGoods() {
         $.ajax(
                 {
@@ -32,7 +33,6 @@
                     url:'http://localhost:8080/table/goods',
                     success: function (data) {
                         $('#goodstable').html(data);
-                        $('#goodstable').refresh();
                     }
                 }
         )
@@ -83,9 +83,8 @@
                  }
          )
      }
-     function deleteGoods()
+     function deleteGoods(vc)
      {
-         var vc = $('#vc').val();
          $.ajax({
              type:'get',
              url:'http://localhost:8080/table/goodsRemove',
@@ -94,10 +93,9 @@
                  param:vc
              },
              success: function() {
-                 $('#delresult').html('<font color="green">DONE</font>');
-             },
-             error: function () {
-                 $('#delresult').html('<font color="red">ERROR</font>')
+                getAllGoods();
+                 $('#deleteModal').modal('hide');
+                 $('#sort').prop('selectedIndex',0);
              }
          })
      }
@@ -109,16 +107,32 @@
                      url:'http://localhost:8080/table/goodsAdd',
                      data:
                      {
-                         vc:"2281337",
-                         category:"dgdfg",
-                         name:"jyhghj",
-                         quantity:"34",
-                         rp:"331",
-                         wp:"228"
+                         vc: $('#goodsvc').val(),
+                         category: $('#goodscategory').val(),
+                         name: $('#goodsname').val(),
+                         quantity: $('#goodsquantity').val(),
+                         rp: $('#goodsrp').val(),
+                         wp: $('#goodswp').val(),
                      },
-                     success: getAllGoods()
+                     success: function () {
+                         getAllGoods();
+                         $('#addModal').modal('hide')
+                        cleanAddModal();
+                         $('#sort').prop('selectedIndex',0);
+                     },
+                     error: function () {
+                         alert('Ошибка! Проверьте правильность ввода данных.');
+                     }
                  }
          )
+     }
+     function cleanAddModal() {
+         $('#goodsvc').val("");
+         $('#goodscategory').val("");
+         $('#goodsname').val("");
+         $('#goodsquantity').val("");
+         $('#goodsrp').val("");
+         $('#goodswp').val("");
      }
      function printTable()
      {
@@ -128,8 +142,9 @@
          newWin.print();
          newWin.close();
      }
-     function showDeleteModal(info)
+     function showDeleteModal(vc)
      {
+         selectedGoods=vc;
          $('#deleteModal').modal('show');
      }
      function showaddGoodsModal()
@@ -155,12 +170,6 @@
     </div>
 </nav>
 
-<div style="text-align: center;">
-        <input type="number" id="vc" required placeholder="VENDOR CODE" min="1">
-        <button onclick="deleteGoods()">Удалить</button>
-</div>
-
-
 <div class="container" style="width: auto !important;">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -172,7 +181,7 @@
                             <button type="button" class="btn btn-sm btn-primary btn-create" onclick="getAllGoods()"><em class="glyphicon glyphicon-refresh"></em></button>
 
                         </div>
-                        <div class="col col-xs-6 text-right" style="width: auto !important;">
+                        <div class="col col-xs-6 pull-right" style="width: auto !important;" >
                             <input class="form-control" type="number" id="id" required placeholder="Артикул товара" min="1" style="width: 200px;display: inline-block;">
                             <button onclick="searchbyID()" class="btn btn-sm btn-primary btn-create">Искать</button>
                             <input type="text" class="form-control" id="name" required placeholder="Название товара" style="width: 200px;display: inline-block;">
@@ -192,7 +201,7 @@
                     </div>
                 </div>
                 <div class="panel-body" >
-                    <table class="table table-striped table-bordered table-list" id="goods">
+                    <table class="table table-striped table-bordered table-list" id="goods" border="1">
                         <thead>
                         <tr>
                             <th><em class="fa fa-cog"></em></th>
@@ -238,11 +247,11 @@
             </div>
             <div class="modal-body">
                 <p>Вы действительно хотите удалить товар?</p>
-                <p class="text-warning"><small>Бла бла бла</small></p>
+                <p class="text-warning"><small>После удаления данный товар будет невозможно восстановить!</small></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-danger">Удалить</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" >Отмена</button>
+                <button type="button" class="btn btn-danger" onclick="deleteGoods(selectedGoods)">Удалить</button>
             </div>
         </div>
     </div>
@@ -274,8 +283,8 @@
                 <input type="number" min="0" id="goodswp" placeholder="Оптовая цена" class="form-control">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-success">Добавить</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cleanAddModal()">Отмена</button>
+                <button type="button" class="btn btn-success" onclick="addGoods()">Добавить</button>
             </div>
         </div>
     </div>

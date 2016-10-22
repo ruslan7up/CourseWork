@@ -1,6 +1,7 @@
 package controllers;
 
 import data.impl.GoodsServiceImpl;
+import domains.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,8 +25,16 @@ public class GoodsController {
     @RequestMapping(value = "/goodsPanel", method = RequestMethod.GET)
     public ModelAndView viewGoodsTable(HttpSession hsr)
     {
-        ModelMap modelMap = new ModelMap();
-        modelMap.put("goods",goodsService.getAllGoods());
-        return new ModelAndView("goodsPage",modelMap);
+        Account account = (Account) hsr.getAttribute("user");
+        if(account !=null ) {
+            ModelMap modelMap = new ModelMap();
+            modelMap.put("goods", goodsService.getAllGoods());
+            return new ModelAndView("goodsPage", modelMap);
+        } else
+        {
+            ModelMap modelMap = new ModelMap();
+            modelMap.put("authresult","Чтобы получить доступ к этой странице необходимо авторизоваться!");
+            return new ModelAndView("AuthForm",modelMap);
+        }
     }
 }
