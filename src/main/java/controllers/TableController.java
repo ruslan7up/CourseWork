@@ -9,7 +9,6 @@ import domains.Account;
 import domains.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -190,6 +189,33 @@ public class TableController {
             } else
             {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+    }
+    @RequestMapping(value = "/goodsUpdate", method = RequestMethod.GET)
+    public void updateGoods(@RequestParam Map<String, Object> param, HttpSession hsr, HttpServletResponse response)
+    {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null)
+        {
+            String vc = (String) param.get("vc");
+            String category = (String) param.get("category");
+            String name = (String) param.get("name");
+            String quantity = (String) param.get("quantity");
+            String rp = (String) param.get("rp");
+            String wp = (String) param.get("wp");
+            if(vc!=null && category!=null && name!=null && quantity!=null && rp!=null && wp!=null)
+            {
+                boolean addStatus;
+                addStatus=goodsService.updateGoods(Integer.parseInt(vc),category,name,Long.parseLong(quantity),Double.parseDouble(rp),Double.parseDouble(wp));
+                if(addStatus==true)
+                {
+                    response.setStatus(HttpServletResponse.SC_OK);
+                } else {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
             }
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);

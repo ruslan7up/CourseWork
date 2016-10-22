@@ -8,9 +8,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<script scr="/resources/js/jquery-3.1.0.min.js"></script>
+
 <html lang="en">
 <head>
+
     <title>DEBUG</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

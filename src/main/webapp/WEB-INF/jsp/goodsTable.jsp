@@ -15,7 +15,7 @@
 <c:forEach var="good" items="${goods}" varStatus="loop">
     <tr>
         <td align="center" style="width: 100px;">
-            <a class="btn btn-default" title="Редактировать" onclick="showEditModal(this)"><em class="fa fa-pencil"></em></a>
+            <a class="btn btn-default" title="Редактировать" onclick="showEditModal(${good.getId()},'${good.getCategory()}','${good.getName()}',${good.getQuantity()},${good.getRetailPrice()},${good.getWholesalePrice()})"><em class="fa fa-pencil"></em></a>
             <a class="btn btn-danger" title="Удалить" onclick="showDeleteModal(${good.getId()})"><em class="fa fa-trash" ></em></a>
         </td>
         <td class="hidden-xs" style="height: 50px;">${good.getId()}</td>

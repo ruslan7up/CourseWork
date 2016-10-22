@@ -40,8 +40,8 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Override
     public List<Goods> getGoodsByName(String name) {
-        Query query = session.createQuery("FROM Goods WHERE name=:GoodsName");
-        query.setParameter("GoodsName",name);
+        Query query = session.createQuery("FROM Goods WHERE name LIKE :GoodsName");
+        query.setParameter("GoodsName","%"+name+"%");
         List<Goods> list = query.list();
         if(!list.isEmpty())
         {
@@ -88,6 +88,28 @@ public class GoodsServiceImpl implements GoodsService{
             goods.setRetailPrice(retailPrice);
             goods.setWholesalePrice(wholesalePrice);
             session.save(goods);
+            tr.commit();
+            return true;
+        } catch (Exception e) {
+            tr.rollback();
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateGoods(int vc, String category, String name, long quantity, double retailPrice, double wholesalePrice) {
+        Transaction tr = session.getTransaction();
+        try {
+            tr.begin();
+            Goods goods = new Goods();
+            goods.setId(vc);
+            goods.setCategory(category);
+            goods.setName(name);
+            goods.setQuantity(quantity);
+            goods.setRetailPrice(retailPrice);
+            goods.setWholesalePrice(wholesalePrice);
+            session.merge(goods);
             tr.commit();
             return true;
         } catch (Exception e) {

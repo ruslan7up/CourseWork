@@ -13,4 +13,5 @@ public interface GoodsService {
     public List<Goods> getAllGoods();
     public boolean removeGoods(long id) throws Exception;
     public boolean addGoods(int vc,String category,String name, long quantity, double retailPrice, double wholesalePrice);
+    public boolean updateGoods(int vc,String category,String name, long quantity, double retailPrice, double wholesalePrice);
 }

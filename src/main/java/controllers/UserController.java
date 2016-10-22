@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -89,6 +90,22 @@ public class UserController {
          {
              return new ModelAndView("AuthForm");
          }
+    }
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ModelAndView logout(HttpSession hsr, HttpServletResponse response)
+    {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null)
+        {
+            hsr.removeAttribute("user");
+            try {
+                response.sendRedirect("/users/authPage");
+            } catch (IOException e)
+            {
+                return new ModelAndView("AuthForm");
+            }
+            return new ModelAndView("AuthForm");
+        } else return new ModelAndView("page403");
     }
 
 }

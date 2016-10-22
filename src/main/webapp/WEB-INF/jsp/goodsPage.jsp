@@ -9,152 +9,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="shortcut icon" href="/resources/images/icon.ico" type="image/ico">
     <script scr="/resources/js/jquery-3.1.0.min.js"></script>
-    <title>Склад</title>
+    <title>Склад</title> <!-- Заголовок страницы -->
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <script src="/resources/js/jquery-3.1.0.min.js"></script>
     <script src="/resources/js/bootstrap.min.js"></script>
     <style>
         body {
-            background-image: url(http://blacktie.co/demo/premium/dashio/frontend/demos/sliderbg_01.png); /* Путь к фоновому изображению */
-            background-size: 100% 100%;
+            background-image: url(/resources/images/sliderbg_01.png); /* Путь к фоновому изображению */
+            background-size: 100% 100%; /* Растянуть фоновое изображение */
         }
     </style>
 
 </head>
 
-<script>
-    var selectedGoods;
-    function getAllGoods() {
-        $.ajax(
-                {
-                    type:'get',
-                    url:'http://localhost:8080/table/goods',
-                    success: function (data) {
-                        $('#goodstable').html(data);
-                    }
-                }
-        )
-    }
-    function sortGoods(sorttype) {
-        var type = sorttype.value;
-        $.ajax(
-                {
-                    type:'get',
-                    url:'http://localhost:8080/table/goods',
-                    data:{
-                        sort:type
-                    },
-                    success: function (data) {
-                        $('#goodstable').html(data);
-                    }
-                })
-     }
-     function searchbyID() {
-         var id = $('#id').val();
-         $.ajax(
-                 {
-                     type:'get',
-                     url:'http://localhost:8080/table/goods',
-                     data:
-                     {
-                         byid:id
-                     },
-                    success: function (data) {
-                        $('#goodstable').html(data);
-                    }
-                 }
-         )
-     }
-     function searchbyName() {
-         var name = $('#name').val();
-         $.ajax(
-                 {
-                     type:'get',
-                     url:'http://localhost:8080/table/goods',
-                     data:
-                     {
-                         byname:name
-                     },
-                     success: function (data) {
-                         $('#goodstable').html(data);
-                     }
-                 }
-         )
-     }
-     function deleteGoods(vc)
-     {
-         $.ajax({
-             type:'get',
-             url:'http://localhost:8080/table/goodsRemove',
-             data:
-             {
-                 param:vc
-             },
-             success: function() {
-                getAllGoods();
-                 $('#deleteModal').modal('hide');
-                 $('#sort').prop('selectedIndex',0);
-             }
-         })
-     }
-     function addGoods()
-     {
-         $.ajax(
-                 {
-                     type:'get',
-                     url:'http://localhost:8080/table/goodsAdd',
-                     data:
-                     {
-                         vc: $('#goodsvc').val(),
-                         category: $('#goodscategory').val(),
-                         name: $('#goodsname').val(),
-                         quantity: $('#goodsquantity').val(),
-                         rp: $('#goodsrp').val(),
-                         wp: $('#goodswp').val(),
-                     },
-                     success: function () {
-                         getAllGoods();
-                         $('#addModal').modal('hide')
-                        cleanAddModal();
-                         $('#sort').prop('selectedIndex',0);
-                     },
-                     error: function () {
-                         alert('Ошибка! Проверьте правильность ввода данных.');
-                     }
-                 }
-         )
-     }
-     function cleanAddModal() {
-         $('#goodsvc').val("");
-         $('#goodscategory').val("");
-         $('#goodsname').val("");
-         $('#goodsquantity').val("");
-         $('#goodsrp').val("");
-         $('#goodswp').val("");
-     }
-     function printTable()
-     {
-         var divToPrint=document.getElementById("goods");
-         newWin= window.open("");
-         newWin.document.write(divToPrint.outerHTML);
-         newWin.print();
-         newWin.close();
-     }
-     function showDeleteModal(vc)
-     {
-         selectedGoods=vc;
-         $('#deleteModal').modal('show');
-     }
-     function showaddGoodsModal()
-     {
-         $('#addModal').modal('show');
-     }
-     function showEditModal(info) {
-         $('#editModal').modal('show');
-     }
-</script>
+<!-- Шапка начало -->
 <body>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -162,14 +33,19 @@
             <a class="navbar-brand" href="#">Курсовая</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Главная</a></li>
-            <li><a href="#">Страница 1</a></li>
-            <li><a href="#">Страница 2</a></li>
-            <li><a href="#">Страница 3</a></li>
+            <li class="active"><a href="/goods/goodsPanel">Склад</a></li>
+            <li><a href="#" onclick="alert('В разработке! :)')">Панель Администратора</a></li>
+            <li><a href="#" onclick="alert('В разработке! :)')">Страница 2</a></li>
+            <li><a href="#" onclick="alert('В разработке! :)')">Страница 3</a></li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+            <li><a href="/users/logout">Выход</a></li>
         </ul>
     </div>
 </nav>
+<!-- Шапка конец -->
 
+<!-- Таблица начало -->
 <div class="container" style="width: auto !important;">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -178,7 +54,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col col-xs-6" style="width: auto !important;">
-                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="getAllGoods()"><em class="glyphicon glyphicon-refresh"></em></button>
+                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="getAllGoods()" title="Обновить таблицу"><em class="glyphicon glyphicon-refresh"></em></button>
 
                         </div>
                         <div class="col col-xs-6 pull-right" style="width: auto !important;" >
@@ -200,8 +76,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel-body" >
-                    <table class="table table-striped table-bordered table-list" id="goods" border="1">
+                <div class="panel-body"  style="height: auto !important; max-height: 80%; overflow-y:scroll;">
+                    <table class="table table-striped table-bordered table-list" id="goods" border="1" >
                         <thead>
                         <tr>
                             <th><em class="fa fa-cog"></em></th>
@@ -230,14 +106,18 @@
                     </table>
 
                 </div>
-                <div class="panel-footer">
-
+                <div class="panel-footer" style="height: 30px;">
+                    <div class="pull-right">
+                        <p>&copy; 2016 <a href="https://vk.com/ruslanw" target="_blank">VK</a></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!-- Таблица конец -->
 
+<!-- Форма удаления Начало-->
 <div id="deleteModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -256,7 +136,10 @@
         </div>
     </div>
 </div>
-<div id="addModal" class="modal fade">
+<!-- Форма удаления Конец -->
+
+<!-- Форма добавления Начало-->
+<div id="addModal" class="modal fade" >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -289,12 +172,15 @@
         </div>
     </div>
 </div>
+<!-- Форма добавления Конец-->
+
+<!-- Форма редактирования Начало -->
 <div id="editModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Добавление товара</h4>
+                <h4 class="modal-title">Редактирование товара</h4>
             </div>
             <div class="modal-body">
                 <label for="egoodsvc">Артикул</label>
@@ -317,11 +203,24 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-success">Добавить</button>
+                <button type="button" class="btn btn-success" onclick="updateGoods()">Изменить</button>
             </div>
         </div>
     </div>
 </div>
+<!-- Форма редактирования Конец -->
+
+
+<script>
+    $(document).ready(function(){
+        $("#addModal").on('hidden.bs.modal', function () {
+            cleanAddModal();
+        });
+    });
+</script>
+
+<!-- Подключение скриптов для работы со складом -->
+<script src="/resources/js/goodsPageScripts.js"></script>
 </body>
 </html>
 

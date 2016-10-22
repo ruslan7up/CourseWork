@@ -23,7 +23,7 @@
     </listener>
 
     <welcome-file-list>
-        <welcome-file>/WEB-INF/jsp/AuthForm.jsp</welcome-file>
+        <welcome-file>/WEB-INF/jsp/redirect.jsp</welcome-file>
     </welcome-file-list>
     <error-page>
         <error-code>404</error-code>

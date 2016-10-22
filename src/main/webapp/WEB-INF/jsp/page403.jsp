@@ -33,7 +33,7 @@
             <div class="centering text-center error-container">
                 <div class="text-center">
                     <h2 class="without-margin">Ошибка <span class="text-warning"><big>403</big></span></h2>
-                    <h4 class="text-danger">Access denied</h4>
+                    <h4 class="text-danger">В доступе отказано524</h4>
                 </div>
                 <div class="text-center">
                     <h3><small>Основные страницы ниже</small></h3>
