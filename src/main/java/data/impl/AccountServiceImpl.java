@@ -2,8 +2,11 @@ package data.impl;
 
 import data.AccountService;
 import domains.Account;
+import domains.Goods;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,25 +35,19 @@ public class AccountServiceImpl implements AccountService {
         if(!list.isEmpty())
         {
             return list.get(0);
-        } else
-        {
-            return null;
         }
+        return null;
     }
 
     @Override
     public Account getAccountByLogin(String name) {
         Query query = session.createQuery("FROM Account WHERE login=:AccountLogin");
-        query.setParameter("AccountLogin",name);
+        query.setParameter("AccountLogin", name);
         List<Account> list = query.list();
-        if(!list.isEmpty())
-        {
+        if (!list.isEmpty()) {
             return list.get(0);
-        } else
-        {
-            return null;
         }
-
+        return null;
     }
 
     @Override
@@ -61,13 +58,36 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void removeAccount(long id) {
-        Query query = session.createQuery("DELETE from Account WHERE id=:AccountID");
-        query.setParameter("AccountID",id);
+    public boolean removeAccount(long id) {
+        Transaction tr = session.getTransaction();
+        try {
+            tr.begin();
+            Query query = session.createQuery("Delete Account WHERE id=:AccID");
+            query.setParameter("AccID", id);
+            query.executeUpdate();
+            tr.commit();
+            return true;
+        } catch (Exception e) {
+            tr.rollback();
+            return false;
+        }
     }
 
     @Override
-    public void addAccount(long login, String pass) {
-
+    public boolean addAccount(String login, String pass) {
+        Transaction tr = session.getTransaction();
+        try {
+            tr.begin();
+            Account account = new Account();
+            account.setLogin(login);
+            account.setPass(DigestUtils.md5Hex(pass));
+            session.save(account);
+            tr.commit();
+            return true;
+        } catch (Exception e) {
+            tr.rollback();
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }

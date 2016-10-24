@@ -17,7 +17,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-<%--    <link rel="icon" href="../../favicon.ico">--%>
+    <link rel="shortcut icon" href="/resources/images/icon2.ico" type="image/ico">
 
     <title>Авторизация</title>
 
@@ -30,6 +30,7 @@
 </head>
 
 <body>
+<!-- Начало блока авторизации -->
 <div class="container">
 
     <form class="form-signin" action="/users/authPage" method="post">
@@ -41,8 +42,8 @@
         <label for="button" style="color: red">${authresult}</label>
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="button">Войти</button>
     </form>
-
-</div> <!-- /container -->
+</div>
+<!-- Конец блока авторизации -->
 
 </body>
 </html>

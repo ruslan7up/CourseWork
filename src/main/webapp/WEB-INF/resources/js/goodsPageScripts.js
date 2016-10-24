@@ -32,35 +32,37 @@
      }
      function searchbyID() {
          var id = $('#id').val();
-         $.ajax(
+         if(id.length != 0) {
+             $.ajax(
                  {
-                     type:'get',
-                     url:'http://localhost:8080/table/goods',
-                     data:
-                     {
-                         byid:id
-                     },
-                    success: function (data) {
-                        $('#goodstable').html(data);
-                    }
-                 }
-         )
-     }
-     function searchbyName() {
-         var name = $('#name').val();
-         $.ajax(
-                 {
-                     type:'get',
-                     url:'http://localhost:8080/table/goods',
-                     data:
-                     {
-                         byname:name
+                     type: 'get',
+                     url: 'http://localhost:8080/table/goods',
+                     data: {
+                         byid: id
                      },
                      success: function (data) {
                          $('#goodstable').html(data);
                      }
                  }
-         )
+             )
+         }
+     }
+     function searchbyName() {
+         var name = $('#name').val();
+         if(name.length != 0) {
+             $.ajax(
+                 {
+                     type: 'get',
+                     url: 'http://localhost:8080/table/goods',
+                     data: {
+                         byname: name
+                     },
+                     success: function (data) {
+                         $('#goodstable').html(data);
+                     }
+                 }
+             )
+         }
      }
      function deleteGoods(vc)
      {

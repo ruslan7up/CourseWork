@@ -42,33 +42,74 @@ public class TableController {
             String login = (String) param.get("byname");
             if(id!=null)
             {
-                List<Account> list = new ArrayList<>();
-                try {
-                    list.add(accountService.getAccountByID(Long.parseLong(id)));
-                } catch (NumberFormatException e)
-                {
-                    return new ModelAndView("userTable");
-                }
                 ModelMap modelMap = new ModelMap();
+                List<Account> list = new ArrayList<>();
+                list.add(accountService.getAccountByID(Long.parseLong(id)));
                 modelMap.put("accounts",list);
-                return new ModelAndView("userTable",modelMap);
+                return new ModelAndView("accountsTable",modelMap);
             } else
             if(login!=null)
             {
+                ModelMap modelMap = new ModelMap();
                 List<Account> list = new ArrayList<>();
                 list.add(accountService.getAccountByLogin(login));
-                ModelMap modelMap = new ModelMap();
                 modelMap.put("accounts",list);
-                return new ModelAndView("userTable",modelMap);
+                return new ModelAndView("accountsTable",modelMap);
             }
             if(login==null && id==null)
             {
                 ModelMap modelMap = new ModelMap();
                 modelMap.put("accounts", accountService.getAllUsers());
-                return new ModelAndView("userTable",modelMap);
+                return new ModelAndView("accountsTable",modelMap);
             }
         }
         return new ModelAndView("page403");
+    }
+    @RequestMapping(value = "/userAdd", method = RequestMethod.GET)
+    public void addUser(@RequestParam Map<String, Object> param, HttpSession hsr, HttpServletResponse response)
+    {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null)
+        {
+            String login = (String) param.get("login");
+            String pass = (String) param.get("password");
+            if(login!=null && pass!=null)
+            {
+                boolean addStatus;
+                addStatus=accountService.addAccount(login, pass);
+                if(addStatus==true)
+                {
+                    response.setStatus(HttpServletResponse.SC_OK);
+                } else {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value = "/userRemove", method = RequestMethod.GET)
+    public void removeUser(@RequestParam String param,HttpSession hsr, HttpServletResponse response)
+    {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null)
+        {
+            int id = Integer.parseInt(param);
+            boolean removeStatus;
+            removeStatus=accountService.removeAccount(id);
+            if(removeStatus==true)
+            {
+                response.setStatus(HttpServletResponse.SC_OK);
+            } else
+            {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
     }
     @RequestMapping(value = "/goods", method = RequestMethod.GET)
     public ModelAndView getGoodsTable(@RequestParam Map<String,Object> param,HttpSession hsr)
@@ -159,7 +200,7 @@ public class TableController {
             String quantity = (String) param.get("quantity");
             String rp = (String) param.get("rp");
             String wp = (String) param.get("wp");
-            if(vc!=null && category!=null && name!=null && quantity!=null && rp!=null && wp!=null)
+            if(!vc.isEmpty() && !category.isEmpty() && !name.isEmpty() && !quantity.isEmpty() && !rp.isEmpty() && !wp.isEmpty())
             {
                 boolean addStatus;
                 addStatus=goodsService.addGoods(Integer.parseInt(vc),category,name,Long.parseLong(quantity),Double.parseDouble(rp),Double.parseDouble(wp));
@@ -169,6 +210,8 @@ public class TableController {
                 } else {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 }
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -206,7 +249,7 @@ public class TableController {
             String quantity = (String) param.get("quantity");
             String rp = (String) param.get("rp");
             String wp = (String) param.get("wp");
-            if(vc!=null && category!=null && name!=null && quantity!=null && rp!=null && wp!=null)
+            if(!vc.isEmpty() && !category.isEmpty() && !name.isEmpty() && !quantity.isEmpty() && !rp.isEmpty() && !wp.isEmpty())
             {
                 boolean addStatus;
                 addStatus=goodsService.updateGoods(Integer.parseInt(vc),category,name,Long.parseLong(quantity),Double.parseDouble(rp),Double.parseDouble(wp));
@@ -216,10 +259,36 @@ public class TableController {
                 } else {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 }
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
+ /*   @RequestMapping(value = "/shops", method = RequestMethod.GET)
+    public ModelAndView getShopsTable(@RequestParam Map<String, Object> param, HttpSession hsr)
+    {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null)
+        {
+            String id = (String) param.get("byid");
+            String name = (String) param.get("byname");
+            if(id!=null)
+            {
+                ModelMap modelMap = new ModelMap();
 
+            } else if (name!=null)
+            {
+
+            } else
+            {
+
+            }
+        } else
+        {
+            return new ModelAndView("page403");
+        }
+    }
+*/
 }

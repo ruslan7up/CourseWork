@@ -32,44 +32,12 @@ public class AdminController {
         Account user = (Account) hsr.getAttribute("user");
         if (user != null) {
             ModelMap map = new ModelMap();
-            map.put("accserivce",accountService);
-            String id = (String) param.get("id");
-            String login = (String) param.get("login");
-            if (id != null) {
-                try {
-                    Account account = accountService.getAccountByID(Long.parseLong(id));
-                    if (account != null) {
-                        List<Account> list = new ArrayList<>();
-                        list.add(account);
-                        map = new ModelMap();
-                        map.put("accounts", list);
-                        return new ModelAndView("admPanel", map);
-                    } else {
-                        return new ModelAndView("admPanel",map);
-                    }
-                } catch (NumberFormatException e)
-                {
-                    return new ModelAndView("admPanel",map);
-                }
-
-            } else if (login != null) {
-                Account account = accountService.getAccountByLogin(login);
-                if (account != null) {
-                    List<Account> list = new ArrayList<>();
-                    list.add(account);
-                    map = new ModelMap();
-                    map.put("accounts", list);
-                    return new ModelAndView("admPanel", map);
-                } else {
-                    return new ModelAndView("admPanel",map);
-                }
-            }
             map.put("accounts", accountService.getAllUsers());
-            map.put("goods", goodsService.getAllGoods() );
             return new ModelAndView("admPanel", map);
         } else {
             return new ModelAndView("page403");
         }
+
     }
 
 }

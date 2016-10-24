@@ -3,20 +3,18 @@ package controllers;
 import data.impl.AccountServiceImpl;
 import data.impl.GoodsServiceImpl;
 import domains.Account;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,7 +36,7 @@ public class UserController {
                 Account account = accountService.getAccountByLogin(userName);
                 if(account!=null)
                 {
-                    if(password.equals(account.getPass()))
+                    if(DigestUtils.md5Hex(password).equals(account.getPass()))
                     {
                         hsr.setAttribute("user", new Account(1L, userName, password));
                         try {
@@ -105,7 +103,7 @@ public class UserController {
                 return new ModelAndView("AuthForm");
             }
             return new ModelAndView("AuthForm");
-        } else return new ModelAndView("page403");
+        } else return new ModelAndView("AuthForm");
     }
 
 }

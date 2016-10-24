@@ -1,17 +1,23 @@
 package domains;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
+import javax.persistence.*;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Created by admin on 14.09.2016.
  */
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"login"})})
+
 public class Account{
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotEmpty
     private String login;
+    @NotEmpty
     private String pass;
     public Account(Long id, String login, String pass) {
         this.id = id;

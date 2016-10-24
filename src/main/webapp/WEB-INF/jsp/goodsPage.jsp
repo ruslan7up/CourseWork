@@ -34,9 +34,8 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="/goods/goodsPanel">Склад</a></li>
-            <li><a href="#" onclick="alert('В разработке! :)')">Панель Администратора</a></li>
-            <li><a href="#" onclick="alert('В разработке! :)')">Страница 2</a></li>
-            <li><a href="#" onclick="alert('В разработке! :)')">Страница 3</a></li>
+            <li ><a href="/shop/info" >Магазины</a></li>
+            <li><a href="/admin/allPanels">Панель Администратора</a></li>
         </ul>
         <ul class="nav navbar-nav pull-right">
             <li><a href="/users/logout">Выход</a></li>
@@ -64,8 +63,8 @@
                             <button onclick="searchbyName()"  type="button" class="btn btn-sm btn-primary btn-create" >Искать</button>
                             <select class="form-control" name="sort" id="sort" onchange="sortGoods(this)" style="width: 200px;display: inline-block">
                                 <option disabled selected>Сортировать по....</option>
-                                <option value="byid" >По ID</option>
-                                <option value="byiddesc" >По ID (В обратном)</option>
+                                <option value="byid" >По Артикулу</option>
+                                <option value="byiddesc" >По Артикулу (В обратном)</option>
                                 <option value="byname" >По Имени</option>
                                 <option value="bynamedesc" >По Имени (В обратном)</option>
                                 <option value="byquantity">По Количеству</option>
@@ -83,7 +82,7 @@
                             <th><em class="fa fa-cog"></em></th>
                             <th class="hidden-xs">Артикул</th>
                             <th >Категория</th>
-                            <th width="25%">Название</th>
+                            <th style="width:25%;">Название</th>
                             <th >Количество</th>
                             <th >Розничная цена</th>
                             <th >Оптовая цена</th>

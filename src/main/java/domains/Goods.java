@@ -1,5 +1,7 @@
 package domains;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,12 +11,14 @@ import javax.persistence.Id;
 @Entity
 public class Goods {
     @Id
-    private long id;
+    private Long id;
+    @NotEmpty
     private String category;
+    @NotEmpty
     private String name;
-    private long quantity;
-    private double retailPrice;
-    private double wholesalePrice;
+    private Long quantity;
+    private Double retailPrice;
+    private Double wholesalePrice;
 
     public Goods() {
     }
