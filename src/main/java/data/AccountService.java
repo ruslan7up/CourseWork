@@ -12,5 +12,5 @@ public interface AccountService {
     public Account getAccountByLogin(String name);
     public List<Account> getAllUsers();
     public boolean removeAccount(long id);
-    public boolean addAccount(String login, String pass);
+    public boolean addAccount(String fullname,String login, String pass);
 }

@@ -5,6 +5,7 @@ var selectedAccount;
 
 function cleanAddModal() {
     $('#accid').val("");
+    $('#accfn').val("");
     $('#acclog').val("");
     $('#accpass').val("");
 }
@@ -38,6 +39,7 @@ function addAcc()
             url:'http://localhost:8080/table/userAdd',
             data:
             {
+                fn: $('#accfn').val(),
                 login: $('#acclog').val(),
                 password: $('#accpass').val(),
             },

@@ -36,16 +36,21 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Shop getShopByID(long id) {
+    public List<Shop> getShopByID(long id) {
         Query query = session.createQuery("FROM Shop WHERE id=:ShopID");
         query.setParameter("ShopID",id);
-        return (Shop) query.getSingleResult();
+        List<Shop> list = query.list();
+        if(!list.isEmpty())
+        {
+            return list;
+        }
+        return null;
     }
 
     @Override
     public List<Shop> getShopByName(String name) {
-        Query query = session.createQuery("FROM Shop WHERE shopname=:ShopName");
-        query.setParameter("ShopName",name);
+        Query query = session.createQuery("FROM Shop WHERE shopname LIKE :ShopName");
+        query.setParameter("ShopName","%"+name+"%");
         List<Shop> list = query.list();
         if(!list.isEmpty())
         {
@@ -73,11 +78,12 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public boolean addShop(String shopname, String address, String phonenumber) {
+    public boolean addShop(Long id,String shopname, String address, String phonenumber) {
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();
             Shop shop = new Shop();
+            shop.setId(id);
             shop.setShopname(shopname);
             shop.setAddress(address);
             shop.setPhonenumber(phonenumber);

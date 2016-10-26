@@ -36,9 +36,10 @@ public class UserController {
                 Account account = accountService.getAccountByLogin(userName);
                 if(account!=null)
                 {
+
                     if(DigestUtils.md5Hex(password).equals(account.getPass()))
                     {
-                        hsr.setAttribute("user", new Account(1L, userName, password));
+                        hsr.setAttribute("user", account);
                         try {
                             response.sendRedirect("http://localhost:8080/goods/goodsPanel");
                         } catch (Exception e)

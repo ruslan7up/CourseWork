@@ -5,6 +5,7 @@ import data.comparators.byName;
 import data.comparators.byQuantity;
 import data.impl.AccountServiceImpl;
 import data.impl.GoodsServiceImpl;
+import data.impl.ShopServiceImpl;
 import domains.Account;
 import domains.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class TableController {
     private AccountServiceImpl accountService;
     @Autowired
     private GoodsServiceImpl goodsService;
+    @Autowired
+    private ShopServiceImpl shopService;
+
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ModelAndView getUserTable(@RequestParam Map<String,Object> param, HttpSession hsr)
     {
@@ -43,18 +47,34 @@ public class TableController {
             if(id!=null)
             {
                 ModelMap modelMap = new ModelMap();
-                List<Account> list = new ArrayList<>();
-                list.add(accountService.getAccountByID(Long.parseLong(id)));
-                modelMap.put("accounts",list);
-                return new ModelAndView("accountsTable",modelMap);
+                Account result = accountService.getAccountByID(Long.parseLong(id));
+                if(result!=null) {
+                    List<Account> list = new ArrayList<>();
+                    list.add(result);
+                    modelMap.put("accounts", list);
+                    return new ModelAndView("accountsTable", modelMap);
+                } else
+                {
+                    List<Account> list = null;
+                    modelMap.put("accounts",list);
+                    return new ModelAndView("accountsTable",modelMap);
+                }
             } else
             if(login!=null)
             {
                 ModelMap modelMap = new ModelMap();
-                List<Account> list = new ArrayList<>();
-                list.add(accountService.getAccountByLogin(login));
-                modelMap.put("accounts",list);
-                return new ModelAndView("accountsTable",modelMap);
+                Account result = accountService.getAccountByLogin(login);
+                if(result!=null) {
+                    List<Account> list = new ArrayList<>();
+                    list.add(accountService.getAccountByLogin(login));
+                    modelMap.put("accounts", list);
+                    return new ModelAndView("accountsTable", modelMap);
+                } else
+                {
+                    List<Account> list = null;
+                    modelMap.put("accounts",list);
+                    return new ModelAndView("accountsTable",modelMap);
+                }
             }
             if(login==null && id==null)
             {
@@ -71,12 +91,13 @@ public class TableController {
         Account account = (Account) hsr.getAttribute("user");
         if(account!=null)
         {
+            String fullname = (String) param.get("fn");
             String login = (String) param.get("login");
             String pass = (String) param.get("password");
-            if(login!=null && pass!=null)
+            if(!login.isEmpty() && !login.isEmpty() && !fullname.isEmpty())
             {
                 boolean addStatus;
-                addStatus=accountService.addAccount(login, pass);
+                addStatus=accountService.addAccount(fullname,login, pass);
                 if(addStatus==true)
                 {
                     response.setStatus(HttpServletResponse.SC_OK);
@@ -253,7 +274,7 @@ public class TableController {
             {
                 boolean addStatus;
                 addStatus=goodsService.updateGoods(Integer.parseInt(vc),category,name,Long.parseLong(quantity),Double.parseDouble(rp),Double.parseDouble(wp));
-                if(addStatus==true)
+                if(addStatus)
                 {
                     response.setStatus(HttpServletResponse.SC_OK);
                 } else {
@@ -266,7 +287,7 @@ public class TableController {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
- /*   @RequestMapping(value = "/shops", method = RequestMethod.GET)
+    @RequestMapping(value = "/shops", method = RequestMethod.GET)
     public ModelAndView getShopsTable(@RequestParam Map<String, Object> param, HttpSession hsr)
     {
         Account account = (Account) hsr.getAttribute("user");
@@ -277,18 +298,51 @@ public class TableController {
             if(id!=null)
             {
                 ModelMap modelMap = new ModelMap();
-
+                modelMap.put("shops",shopService.getShopByID(Long.parseLong(id)));
+                return new ModelAndView("shopsTable",modelMap);
             } else if (name!=null)
             {
-
+                ModelMap modelMap = new ModelMap();
+                modelMap.put("shops",shopService.getShopByName(name));
+                return new ModelAndView("shopsTable",modelMap);
             } else
             {
-
+                ModelMap modelMap = new ModelMap();
+                modelMap.put("shops",shopService.getAllShops());
+                return new ModelAndView("shopTable",modelMap);
             }
         } else
         {
             return new ModelAndView("page403");
         }
     }
-*/
+    @RequestMapping(value = "/shopsAdd", method = RequestMethod.GET)
+    public void addShop(@RequestParam Map<String, Object> param, HttpSession hsr,HttpServletResponse response)
+    {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null)
+        {
+            String id = (String) param.get("id");
+            String shopname = (String) param.get("shopname");
+            String address = (String) param.get("address");
+            String phonenumber = (String) param.get("pn");
+            if(id!=null && shopname != null && address != null && phonenumber != null)
+            {
+                boolean addStatus = shopService.addShop(Long.parseLong(id),shopname,address,phonenumber);
+                if(addStatus)
+                {
+                    response.setStatus(HttpServletResponse.SC_OK);
+                } else
+                {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
+            } else
+            {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        } else
+        {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+    }
 }

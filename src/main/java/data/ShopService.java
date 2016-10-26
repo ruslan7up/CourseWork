@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface ShopService {
     public List<Shop> getAllShops();
-    public Shop getShopByID(long id);
+    public List<Shop> getShopByID(long id);
     public List<Shop> getShopByName(String name);
     public boolean removeShop(long id);
-    public boolean addShop(String shopname,String address,String phonenumber);
+    public boolean addShop(Long id,String shopname,String address,String phonenumber);
 }

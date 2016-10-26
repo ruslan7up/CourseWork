@@ -30,12 +30,12 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Курсовая</a>
+            <a class="navbar-brand" href="http://www.bayansulu.kz/">Баян-сулу</a>
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="/goods/goodsPanel">Склад</a></li>
             <li ><a href="/shop/info" >Магазины</a></li>
-            <li><a href="/admin/allPanels">Панель Администратора</a></li>
+            <li><a href="/admin/allPanels">Сотрудники</a></li>
         </ul>
         <ul class="nav navbar-nav pull-right">
             <li><a href="/users/logout">Выход</a></li>
@@ -150,7 +150,19 @@
                 <input type="number" min="1" id="goodsvc" placeholder="Артикул" class="form-control">
                 <br>
                 <label for="goodscategory" >Категория</label>
-                <input type="text" id="goodscategory" placeholder="Категория" class="form-control">
+                <select class="form-control" name="sort" id="goodscategory">
+                    <option value="Без категории" selected>Без категории</option>
+                    <option value="Вафли" >Вафли</option>
+                    <option value="Драже" >Драже</option>
+                    <option value="Зефир" >Зефир</option>
+                    <option value="Ирис" >Ирис</option>
+                    <option value="Карамель">Карамель</option>
+                    <option value="Конфеты">Конфеты</option>
+                    <option value="Мармелад">Мармелад</option>
+                    <option value="Набор Шоколадных конфет">Набор шоколадных конфет</option>
+                    <option value="Шоколад">Шоколад</option>
+                    <option value="Печенье">Печенье</option>
+                </select>
                 <br>
                 <label for="goodsname" >Название товара</label>
                 <input type="text" id="goodsname" placeholder="Название" class="form-control">
@@ -159,10 +171,10 @@
                 <input type="number" min="0" id="goodsquantity" placeholder="Количество" class="form-control">
                 <br>
                 <label for="goodsrp" >Розничная цена</label>
-                <input type="number" min="0" id="goodsrp" placeholder="Розничная цена" class="form-control">
+                <input type="number"  onchange="calculatewp()" min="0" id="goodsrp" placeholder="Розничная цена" class="form-control">
                 <br>
                 <label for="goodswp" >Оптовая цена</label>
-                <input type="number" min="0" id="goodswp" placeholder="Оптовая цена" class="form-control">
+                <input type="number" min="0" id="goodswp" placeholder="Расчитает автоматически" class="form-control" disabled>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cleanAddModal()">Отмена</button>
@@ -186,7 +198,19 @@
                 <input disabled type="number" min="1" id="egoodsvc" placeholder="Артикул" class="form-control">
                 <br>
                 <label for="egoodscategory" >Категория</label>
-                <input type="text" id="egoodscategory" placeholder="Категория" class="form-control">
+                <select class="form-control" name="sort" id="egoodscategory">
+                    <option value="Без категории" selected>Без категории</option>
+                    <option value="Вафли" >Вафли</option>
+                    <option value="Драже" >Драже</option>
+                    <option value="Зефир" >Зефир</option>
+                    <option value="Ирис" >Ирис</option>
+                    <option value="Карамель">Карамель</option>
+                    <option value="Конфеты">Конфеты</option>
+                    <option value="Мармелад">Мармелад</option>
+                    <option value="Набор Шоколадных конфет">Набор шоколадных конфет</option>
+                    <option value="Шоколад">Шоколад</option>
+                    <option value="Печенье">Печенье</option>
+                </select>
                 <br>
                 <label for="egoodsname" >Название товара</label>
                 <input type="text" id="egoodsname" placeholder="Название" class="form-control">
@@ -195,10 +219,10 @@
                 <input type="number" min="0" id="egoodsquantity" placeholder="Количество" class="form-control">
                 <br>
                 <label for="egoodsrp" >Розничная цена</label>
-                <input type="number" min="0" id="egoodsrp" placeholder="Розничная цена" class="form-control">
+                <input type="number" min="0" id="egoodsrp" onchange="ecalculatewp()" placeholder="Розничная цена" class="form-control">
                 <br>
                 <label for="egoodswp" >Оптовая цена</label>
-                <input type="number" min="0" id="egoodswp" placeholder="Оптовая цена" class="form-control">
+                <input type="number" min="0" id="egoodswp" disabled placeholder="Расчитает автоматически" class="form-control">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>

@@ -54,7 +54,10 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> getAllUsers() {
         Query query = session.createQuery("FROM Account");
         List<Account> list = query.list();
-        return list;
+        if(!list.isEmpty()) {
+            return list;
+        }
+        return null;
     }
 
     @Override
@@ -74,11 +77,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean addAccount(String login, String pass) {
+    public boolean addAccount(String fullname,String login, String pass) {
         Transaction tr = session.getTransaction();
         try {
             tr.begin();
             Account account = new Account();
+            account.setFullname(fullname);
             account.setLogin(login);
             account.setPass(DigestUtils.md5Hex(pass));
             session.save(account);

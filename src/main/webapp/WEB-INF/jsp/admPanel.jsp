@@ -11,7 +11,7 @@
 <head>
     <link rel="shortcut icon" href="/resources/images/icon1.ico" type="image/ico">
     <script scr="/resources/js/jquery-3.1.0.min.js"></script>
-    <title>Панель администратора (BETA)</title> <!-- Заголовок страницы -->
+    <title>Сотрудники (BETA)</title> <!-- Заголовок страницы -->
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <script src="/resources/js/jquery-3.1.0.min.js"></script>
@@ -30,12 +30,12 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Курсовая</a>
+            <a class="navbar-brand" href="http://www.bayansulu.kz/">Баян-сулу</a>
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/goods/goodsPanel">Склад</a></li>
             <li><a href="/shop/info" >Магазины</a></li>
-            <li class="active"><a href="/admin/allPanels">Панель Администратора</a></li>
+            <li class="active"><a href="/admin/allPanels">Сотрудники</a></li>
         </ul>
         <ul class="nav navbar-nav pull-right">
             <li><a href="/users/logout">Выход</a></li>
@@ -71,6 +71,7 @@
                         <tr>
                             <th><em class="fa fa-cog" ></em></th>
                             <th class="hidden-xs">ID</th>
+                            <th>Ф.И.О.</th>
                             <th >Логин</th>
                             <th style="width:auto;">Пароль(MD5)</th>
                         </tr>
@@ -82,6 +83,7 @@
                         <tr>
                             <th><em class="fa fa-cog" ></em></th>
                             <th class="hidden-xs">ID</th>
+                            <th>Ф.И.О.</th>
                             <th >Логин</th>
                             <th width="25%">Пароль(MD5)</th>
                         </tr>
@@ -133,11 +135,15 @@
                 <label for="accid">ID</label>
                 <input type="number" min="1" id="accid" disabled placeholder="Сгенерируется автоматически" class="form-control">
                 <br>
+                <label for="accfn">Ф.И.О.</label>
+                <input type="text" id="accfn" placeholder="Ф.И.О." class="form-control">
+                <br>
                 <label for="acclog" >Логин</label>
                 <input type="text" id="acclog" placeholder="Логин" class="form-control">
                 <br>
                 <label for="accpass" >Пароль</label>
                 <input type="password" id="accpass" placeholder="Пароль" class="form-control">
+                <br>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cleanAddModal()">Отмена</button>

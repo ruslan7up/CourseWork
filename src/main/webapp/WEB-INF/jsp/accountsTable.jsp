@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${accounts == null}">
     <tr>
-        <td colspan="3" style="text-align: center;" >Пользователей нет</td>
+        <td colspan="5" style="text-align: center;" >Пользователей нет</td>
     </tr>
 </c:if>
 <c:forEach var="acc" items="${accounts}" varStatus="loop">
@@ -18,6 +18,7 @@
             <a class="btn btn-danger" title="Удалить" onclick="showDeleteModal(${acc.getId()})"><em class="fa fa-trash" ></em></a>
         </td>
         <td class="hidden-xs" style="height: 50px;">${acc.getId()}</td>
+        <td>${acc.getFullname()}</td>
         <td>${acc.getLogin()}</td>
         <td>${acc.getPass()}</td>
     </tr>

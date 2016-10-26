@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${shops == null}">
     <tr>
-        <td colspan="4" style="text-align: center;">Магазинов нету</td>
+        <td colspan="5" style="text-align: center;">Магазинов нет</td>
     </tr>
 </c:if>
 <c:forEach items="${shops}" var="shop">

@@ -88,7 +88,7 @@
                      data:
                      {
                          vc: $('#goodsvc').val(),
-                         category: $('#goodscategory').val(),
+                         category: $('#goodscategory option:selected').val(),
                          name: $('#goodsname').val(),
                          quantity: $('#goodsquantity').val(),
                          rp: $('#goodsrp').val(),
@@ -114,7 +114,7 @@
                  data:
                  {
                      vc: $('#egoodsvc').val(),
-                     category: $('#egoodscategory').val(),
+                     category: $('#egoodscategory option:selected').val(),
                      name: $('#egoodsname').val(),
                      quantity: $('#egoodsquantity').val(),
                      rp: $('#egoodsrp').val(),
@@ -132,7 +132,7 @@
      }
      function cleanAddModal() {
          $('#goodsvc').val("");
-         $('#goodscategory').val("");
+         $('#goodscategory').val("Без категории");
          $('#goodsname').val("");
          $('#goodsquantity').val("");
          $('#goodsrp').val("");
@@ -165,4 +165,12 @@
          $('#egoodsrp').val(rp);
          $('#egoodswp').val(wp);
          $('#editModal').modal('show');
+     }
+
+     function calculatewp() {
+         $('#goodswp').val(Math.round(parseFloat($('#goodsrp').val())*0.9).toFixed(2));
+     }
+
+     function ecalculatewp() {
+         $('#egoodswp').val((parseFloat($('#egoodsrp').val())*0.9).toFixed(2));
      }

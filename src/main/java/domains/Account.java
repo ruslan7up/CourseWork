@@ -19,13 +19,24 @@ public class Account{
     private String login;
     @NotEmpty
     private String pass;
-    public Account(Long id, String login, String pass) {
+    @NotEmpty
+    private String fullname;
+    public Account(Long id, String login, String pass,String fullname) {
         this.id = id;
         this.login = login;
         this.pass = pass;
+        this.fullname = fullname;
     }
 
     public Account() {
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public Long getId() {
