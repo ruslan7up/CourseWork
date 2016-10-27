@@ -15,7 +15,7 @@
 <c:forEach items="${shops}" var="shop">
     <tr>
         <td align="center" style="width: 50px;">
-            <a class="btn btn-danger" title="Удалить" <%--onclick="showDeleteModal(${shop.getId()})"--%>><em class="fa fa-trash" ></em></a>
+            <a class="btn btn-danger" title="Удалить" onclick="showdelmodal(${shop.getId()})"><em class="fa fa-trash" ></em></a>
         </td>
         <td class="hidden-xs" style="height: 50px;">${shop.getId()}</td>
         <td>${shop.getShopname()}</td>

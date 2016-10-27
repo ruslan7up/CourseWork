@@ -309,7 +309,7 @@ public class TableController {
             {
                 ModelMap modelMap = new ModelMap();
                 modelMap.put("shops",shopService.getAllShops());
-                return new ModelAndView("shopTable",modelMap);
+                return new ModelAndView("shopsTable",modelMap);
             }
         } else
         {
@@ -336,6 +336,23 @@ public class TableController {
                 {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 }
+            } else
+            {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        } else
+        {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+    }
+    @RequestMapping(value = "/shopDelete", method = RequestMethod.GET)
+    public void removeShop(@RequestParam String param,HttpSession hsr,HttpServletResponse response) {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null) {
+            long id = Long.parseLong(param);
+            boolean result = shopService.removeShop(id);
+            if(result) {
+                response.setStatus(HttpServletResponse.SC_OK);
             } else
             {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

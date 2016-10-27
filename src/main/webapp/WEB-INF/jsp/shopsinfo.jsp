@@ -11,7 +11,7 @@
 <head>
     <link rel="shortcut icon" href="/resources/images/icon3.ico" type="image/ico">
     <script scr="/resources/js/jquery-3.1.0.min.js"></script>
-    <title>Магазины (PRE-ALPHA)</title> <!-- Заголовок страницы -->
+    <title>Магазины (BETA)</title> <!-- Заголовок страницы -->
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <script src="/resources/js/jquery-3.1.0.min.js"></script>
@@ -34,6 +34,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/goods/goodsPanel">Склад</a></li>
+            <li><a href="#" onclick="alert('В Разработке')">Заказы</a> </li>
             <li class="active"><a href="/shop/info" >Магазины</a></li>
             <li><a href="/admin/allPanels">Сотрудники</a></li>
         </ul>
@@ -53,15 +54,15 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col col-xs-6" style="width: auto !important;">
-                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="getAllUsers()" title="Обновить таблицу"><em class="glyphicon glyphicon-refresh"></em></button>
+                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="getallshops()" title="Обновить таблицу"><em class="glyphicon glyphicon-refresh"></em></button>
 
                         </div>
                         <div class="col col-xs-6 pull-right" style="width: auto !important;" >
                             <input class="form-control" type="number" id="id" required placeholder="Код магазина" min="1" style="width: 200px;display: inline-block;">
                             <button onclick="searchByID()" class="btn btn-sm btn-primary btn-create">Искать</button>
-                            <input type="text" class="form-control" id="login" required placeholder="Название магазина" style="width: 200px;display: inline-block;">
-                            <button onclick="searchbyName()"  type="button" class="btn btn-sm btn-primary btn-create" >Искать</button>
-                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="showaddModal()">Добавить</button>
+                            <input type="text" class="form-control" id="name" required placeholder="Название магазина" style="width: 200px;display: inline-block;">
+                            <button onclick="searchByName()"  type="button" class="btn btn-sm btn-primary btn-create" >Искать</button>
+                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="showaddmodal()">Добавить</button>
                         </div>
                     </div>
                 </div>
@@ -76,7 +77,7 @@
                             <th>Номер телефона</th>
                         </tr>
                         </thead>
-                        <tbody id="acctable">
+                        <tbody id="shoptable">
                         <%@include file="shopsTable.jsp"%>
                         </tbody>
                         <thead>
@@ -129,21 +130,24 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Добавление пользователя</h4>
+                <h4 class="modal-title">Добавление магазина</h4>
             </div>
             <div class="modal-body">
-                <label for="accid">Код магазина</label>
-                <input type="number" min="1" id="accid" disabled placeholder="Сгенерируется автоматически" class="form-control">
+                <label for="shopid">Код магазина</label>
+                <input type="number" min="1" id="shopid"  placeholder="Код" class="form-control">
                 <br>
-                <label for="acclog" >Логин</label>
-                <input type="text" id="acclog" placeholder="Логин" class="form-control">
+                <label for="shopname">Название магазина</label>
+                <input type="text" placeholder="Название магазина" id="shopname" class="form-control">
                 <br>
-                <label for="accpass" >Пароль</label>
-                <input type="password" id="accpass" placeholder="Пароль" class="form-control">
+                <label for="shopaddress" >Адрес</label>
+                <input type="text" id="shopaddress" placeholder="Адрес" class="form-control">
+                <br>
+                <label for="shoptn" >Номер телефона</label>
+                <input type="text" id="shoptn" placeholder="Номер телефона" class="form-control">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cleanAddModal()">Отмена</button>
-                <button type="button" class="btn btn-success" onclick="addAcc()">Добавить</button>
+                <button type="button" class="btn btn-success" onclick="addshop()">Добавить</button>
             </div>
         </div>
     </div>
@@ -152,7 +156,7 @@
 <script>
     $(document).ready(function(){
         $("#addModal").on('hidden.bs.modal', function () {
-            cleanAddModal();
+            cleanaddform();
         });
     });
 </script>
