@@ -35,7 +35,9 @@ public class AdminController {
             map.put("accounts", accountService.getAllUsers());
             return new ModelAndView("admPanel", map);
         } else {
-            return new ModelAndView("page403");
+            ModelMap modelMap = new ModelMap();
+            modelMap.put("authresult","Чтобы получить доступ к этой странице необходимо авторизоваться!");
+            return new ModelAndView("AuthForm",modelMap);
         }
 
     }

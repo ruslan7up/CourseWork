@@ -1,6 +1,6 @@
 package controllers;
 
-import data.impl.ShopServiceImpl;
+import data.impl.OrderSerivceImpl;
 import domains.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,23 +12,20 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 
 /**
- * Created by ruslan on 24.10.2016.
+ * Created by User on 27.10.2016.
  */
 @Controller
-@RequestMapping(value = "/shop")
-public class ShopController {
+@RequestMapping(value = "/orders")
+public class OrderController {
     @Autowired
-    private ShopServiceImpl shopService;
+    private OrderSerivceImpl orderSerivce;
 
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    public ModelAndView viewShopTable(HttpSession hsr)
+    public ModelAndView viewOrdersPage(HttpSession hsr)
     {
         Account account = (Account) hsr.getAttribute("user");
-        if(account!=null)
-        {
-            ModelMap modelMap = new ModelMap();
-            modelMap.put("shops",shopService.getAllShops());
-            return new ModelAndView("shopsinfo",modelMap);
+        if(account!=null) {
+            return new ModelAndView("orders");
         } else
         {
             ModelMap modelMap = new ModelMap();

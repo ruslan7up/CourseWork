@@ -34,7 +34,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/goods/goodsPanel">Склад</a></li>
-            <li><a href="#" onclick="alert('В Разработке')">Заказы</a> </li>
+            <li><a href="/orders/info" >Заказы</a> </li>
             <li class="active"><a href="/shop/info" >Магазины</a></li>
             <li><a href="/admin/allPanels">Сотрудники</a></li>
         </ul>
