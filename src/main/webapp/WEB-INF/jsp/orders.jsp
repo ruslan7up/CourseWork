@@ -7,13 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: ruslan
-  Date: 01.10.2016
-  Time: 15:59
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -38,7 +31,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="http://www.bayansulu.kz/">Баян-сулу</a>
+            <a class="navbar-brand" href="http://www.bayansulu.kz/" target="_blank">Баян-сулу</a>
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/goods/goodsPanel">Склад</a></li>
@@ -79,20 +72,26 @@
                         <tr>
                             <th><em class="fa fa-cog" ></em></th>
                             <th class="hidden-xs">Номер</th>
-                            <th >Статус</th>
-                            <th width="25%">Состав</th>
+                            <th>Состав</th>
                             <th >Дата</th>
                         </tr>
                         </thead>
                         <tbody id="acctable">
+                        <tr>
+                            <td align="center" style="width: 50px;">
+                                <a class="btn btn-danger" title="Удалить" onclick="alert('developing')"><em class="fa fa-trash" ></em></a>
+                            </td>
+                            <td class="hidden-xs" style="height: 50px;">5343578</td>
+                            <td><button type="button" class="btn btn-info center-block " onclick="alert('developing')">Открыть состав</button></td>
+                            <td>03.11.2016</td>
+                        </tr>
                         <%@include file="ordersTable.jsp"%>
                         </tbody>
                         <thead>
                         <tr>
                             <th><em class="fa fa-cog" ></em></th>
                             <th class="hidden-xs">Номер</th>
-                            <th>Статус</th>
-                            <th width="25%">Состав</th>
+                            <th >Состав</th>
                             <th>Дата</th>
 
                         </tr>
@@ -125,7 +124,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" >Отмена</button>
-                <button type="button" class="btn btn-danger" onclick="removeAcc()">Удалить</button>
+                <button type="button" class="btn btn-danger" onclick="removeOrder()">Удалить</button>
             </div>
         </div>
     </div>
@@ -138,25 +137,26 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Добавление пользователя</h4>
+                <h4 class="modal-title">Добавление заказа</h4>
             </div>
             <div class="modal-body">
-                <label for="accid">ID</label>
-                <input type="number" min="1" id="accid" disabled placeholder="Сгенерируется автоматически" class="form-control">
+                <label for="orderid">Номер заказа</label>
+                <input type="number" min="1" id="orderid" disabled placeholder="Сгенерируется автоматически" class="form-control">
                 <br>
-                <label for="accfn">Ф.И.О.</label>
-                <input type="text" id="accfn" placeholder="Ф.И.О." class="form-control">
-                <br>
-                <label for="acclog" >Логин</label>
-                <input type="text" id="acclog" placeholder="Логин" class="form-control">
-                <br>
-                <label for="accpass" >Пароль</label>
-                <input type="password" id="accpass" placeholder="Пароль" class="form-control">
-                <br>
+                <label for="ordergn">Состав</label> <br>
+                <div id="rows">
+                <div style="display: inline-block;">
+                <input type="text" id="ordergn" name="ordergn" placeholder="Название" style="width: 350px" class="form-control" >
+                </div>
+                <div style="display: inline-block">
+                    <input type="number" id="orderquantity" name="orderquantity" placeholder="Количество" class="form-control">
+                </div>
+                </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" onclick="addRow()">Добавить товар</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cleanAddModal()">Отмена</button>
-                <button type="button" class="btn btn-success" onclick="addAcc()">Добавить</button>
+                <button type="button" class="btn btn-success" onclick="addOrder()">Добавить</button>
             </div>
         </div>
     </div>
@@ -170,8 +170,8 @@
     });
 </script>
 
-<!-- Подключение скриптов для работы с панелью администратора -->
-<script src="/resources/js/accountsPageScripts.js"></script>
+<!-- Подключение скриптов для работы с заказами -->
+<script src="/resources/js/ordersPageScripts.js"></script>
 </body>
 </html>
 

@@ -362,4 +362,15 @@ public class TableController {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
+    @RequestMapping(value="/orders", method = RequestMethod.GET)
+    public ModelAndView getAllOrders(@RequestParam Map<String, Object> param, HttpSession hsr) {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null)
+        {
+            return new ModelAndView();
+        } else
+        {
+            return new ModelAndView("page403");
+        }
+    }
 }

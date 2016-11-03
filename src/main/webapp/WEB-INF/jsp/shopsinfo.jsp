@@ -30,7 +30,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="http://www.bayansulu.kz/">Баян-сулу</a>
+            <a class="navbar-brand" href="http://www.bayansulu.kz/" target="_blank">Баян-сулу</a>
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/goods/goodsPanel">Склад</a></li>
@@ -156,7 +156,7 @@
 <script>
     $(document).ready(function(){
         $("#addModal").on('hidden.bs.modal', function () {
-            cleanaddform();
+            cleanAddModal();
         });
     });
 </script>

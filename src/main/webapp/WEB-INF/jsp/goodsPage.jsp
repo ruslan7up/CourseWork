@@ -30,7 +30,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="http://www.bayansulu.kz/">Баян-сулу</a>
+            <a class="navbar-brand" href="http://www.bayansulu.kz/" target="_blank">Баян-сулу</a>
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="/goods/goodsPanel">Склад</a></li>
@@ -63,8 +63,8 @@
                             <input type="text" class="form-control" id="name" required placeholder="Название товара" style="width: 200px;display: inline-block;">
                             <button onclick="searchbyName()"  type="button" class="btn btn-sm btn-primary btn-create" >Искать</button>
                             <select class="form-control" name="sort" id="sort" onchange="sortGoods(this)" style="width: 200px;display: inline-block">
-                                <option disabled selected>Сортировать по....</option>
-                                <option value="byid" >По Артикулу</option>
+                                <option disabled >Сортировать по....</option>
+                                <option value="byid" selected>По Артикулу</option>
                                 <option value="byiddesc" >По Артикулу (В обратном)</option>
                                 <option value="byname" >По Имени</option>
                                 <option value="bynamedesc" >По Имени (В обратном)</option>
