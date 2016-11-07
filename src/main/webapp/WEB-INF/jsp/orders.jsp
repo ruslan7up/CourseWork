@@ -145,12 +145,11 @@
                 <br>
                 <label>Состав</label> <br>
                 <div id="rows">
-                <div style="display: inline-block;">
-                <input type="text"  name="ordergn" placeholder="Название" style="width: 350px" class="form-control" >
-                </div>
-                <div style="display: inline-block">
-                    <input type="number"  name="orderquantity" placeholder="Количество" class="form-control">
-                </div>
+                    <div class="rows">
+                        <input type="text" class="name" name="ordergn" placeholder="Название" style="width: 350px" class="form-control" >
+                        <input type="number" class="quantity"  name="orderquantity" placeholder="Количество" class="form-control">
+                    </div>
+                    <div/>
                 </div>
             </div>
             <div class="modal-footer">
