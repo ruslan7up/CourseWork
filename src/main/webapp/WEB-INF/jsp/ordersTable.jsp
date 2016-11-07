@@ -18,7 +18,7 @@
             <a class="btn btn-danger" title="Удалить" onclick="showdelmodal(${order.getId()})"><em class="fa fa-trash" ></em></a>
         </td>
         <td class="hidden-xs" style="height: 50px;">${order.getId()}</td>
-        <td><button type="button" class="btn btn-info pull-center">Открыть состав</button></td>
+        <td><button type="button" class="btn btn-info pull-center" onclick="showOrderlist(${order.getId()})">Открыть состав</button></td>
         <td>${order.getDate()}</td>
     </tr>
 </c:forEach>

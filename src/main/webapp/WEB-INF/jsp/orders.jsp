@@ -12,7 +12,7 @@
 <head>
     <link rel="shortcut icon" href="/resources/images/icon1.ico" type="image/ico">
     <script scr="/resources/js/jquery-3.1.0.min.js"></script>
-    <title>Заказы (BETA)</title> <!-- Заголовок страницы -->
+    <title>Заказы (PRE-ALPHA)</title> <!-- Заголовок страницы -->
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <script src="/resources/js/jquery-3.1.0.min.js"></script>
@@ -55,7 +55,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col col-xs-6" style="width: auto !important;">
-                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="getAllUsers()" title="Обновить таблицу"><em class="glyphicon glyphicon-refresh"></em></button>
+                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="getAllOrders()" title="Обновить таблицу"><em class="glyphicon glyphicon-refresh"></em></button>
 
                         </div>
                         <div class="col col-xs-6 pull-right" style="width: auto !important;" >
@@ -143,13 +143,13 @@
                 <label for="orderid">Номер заказа</label>
                 <input type="number" min="1" id="orderid" disabled placeholder="Сгенерируется автоматически" class="form-control">
                 <br>
-                <label for="ordergn">Состав</label> <br>
+                <label>Состав</label> <br>
                 <div id="rows">
                 <div style="display: inline-block;">
-                <input type="text" id="ordergn" name="ordergn" placeholder="Название" style="width: 350px" class="form-control" >
+                <input type="text"  name="ordergn" placeholder="Название" style="width: 350px" class="form-control" >
                 </div>
                 <div style="display: inline-block">
-                    <input type="number" id="orderquantity" name="orderquantity" placeholder="Количество" class="form-control">
+                    <input type="number"  name="orderquantity" placeholder="Количество" class="form-control">
                 </div>
                 </div>
             </div>
@@ -162,6 +162,33 @@
     </div>
 </div>
 <!-- Форма добавления Конец-->
+
+<%--Форма с составом--%>
+<div id="orderlist" class="modal fade" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ordernumber">Состав заказа №</h4>
+            </div>
+            <div class="modal-body" >
+                <table class="table table-bordered">
+                    <thead>
+                    <th>Название товара</th>
+                    <th>Количество</th>
+                    </thead>
+                    <tbody id="orderlisttable">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" >Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+<%--Форма с составом конец--%>
+
 <script>
     $(document).ready(function(){
         $("#addModal").on('hidden.bs.modal', function () {
@@ -169,6 +196,7 @@
         });
     });
 </script>
+
 
 <!-- Подключение скриптов для работы с заказами -->
 <script src="/resources/js/ordersPageScripts.js"></script>

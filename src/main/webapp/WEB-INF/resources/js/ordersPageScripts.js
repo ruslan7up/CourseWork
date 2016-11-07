@@ -3,7 +3,7 @@
  */
 var goods = [];
 function cleanAddModal() {
-    $('#rows').html("<div style='display: inline-block;'> <input type='text' id='ordergn' name='ordergn' placeholder='Название' style='width: 350px' class='form-control' > </div> <div style='display: inline-block'> <input type='number' id='orderquantity' name='orderquantity' placeholder='Количество' class='form-control'> </div>");
+    $('#rows').html("<div style='display: inline-block;'> <input type='text' name='ordergn' placeholder='Название' style='width: 350px' class='form-control' > </div> <div style='display: inline-block'> <input type='number' name='orderquantity' placeholder='Количество' class='form-control'> </div>");
 }
 
 function showaddModal() {
@@ -11,17 +11,28 @@ function showaddModal() {
 }
 
 function addRow() {
-    $('#rows').append("<br><br><div style='display: inline-block;'> <input type='text' placeholder='Название' style='width: 350px' class='form-control' > </div> <div style='display: inline-block'> <input type='number' id='orderquantity' placeholder='Количество' class='form-control'> </div>");
+    $('#rows').append("<br><br><div style='display: inline-block;'> <input type='text'  name='ordergn' placeholder='Название' style='width: 350px' class='form-control' > </div> <div style='display: inline-block'> <input type='number' name='orderquantity'  placeholder='Количество' class='form-control'> </div>");
 }
 
 function addOrder() {
-    $('#rows').each(function () {
-        if($('#this').name=='ordergn') {
-            goods.push()
-        }
-        if($('#this').name=='orderquantity')
-        {
 
+}
+
+function showOrderlist(id) {
+    $.ajax({
+        type: 'get',
+        url:'http://localhost:8080/table/getOrderList',
+        data: {
+            param:id
+        },
+        success: function (data) {
+            $('#orderlisttable').html(data);
+            $('#orderlist').modal('show');
+            $('#ordernumber').html('Состав заказа №'+id);
+        },
+        error: function() {
+            alert('Возникла ошибка при загрузке состава заказа!')
         }
     })
+
 }

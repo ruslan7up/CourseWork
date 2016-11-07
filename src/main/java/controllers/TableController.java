@@ -5,9 +5,11 @@ import data.comparators.byName;
 import data.comparators.byQuantity;
 import data.impl.AccountServiceImpl;
 import data.impl.GoodsServiceImpl;
+import data.impl.OrderSerivceImpl;
 import data.impl.ShopServiceImpl;
 import domains.Account;
 import domains.Goods;
+import domains.GoodsName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,7 +37,8 @@ public class TableController {
     private GoodsServiceImpl goodsService;
     @Autowired
     private ShopServiceImpl shopService;
-
+    @Autowired
+    private OrderSerivceImpl orderSerivce;
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ModelAndView getUserTable(@RequestParam Map<String,Object> param, HttpSession hsr)
     {
@@ -367,9 +370,73 @@ public class TableController {
         Account account = (Account) hsr.getAttribute("user");
         if(account!=null)
         {
-            return new ModelAndView();
+            String id = (String) param.get("byid");
+            if(id!=null)
+            {
+                ModelMap modelMap = new ModelMap();
+                modelMap.put("orders",orderSerivce.getOrderbyId(Long.parseLong(id)));
+                return new ModelAndView("orders",modelMap);
+            } else
+            {
+                ModelMap modelMap = new ModelMap();
+                modelMap.put("orders", orderSerivce.getallOrders());
+                return new ModelAndView("orders", modelMap);
+            }
         } else
         {
+            return new ModelAndView("page403");
+        }
+    }
+    @RequestMapping(value="/OrderAdd", method = RequestMethod.GET)
+    public void addOrder(@RequestParam Map<String,Object> param, HttpSession hsr, HttpServletResponse response)
+    {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null)
+        {
+
+        } else
+        {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value="/OrderDelete", method = RequestMethod.GET)
+    public void removeOrder(@RequestParam String param,HttpSession hsr,HttpServletResponse response)
+    {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null)
+        {
+            long id = Long.parseLong(param);
+            boolean result = orderSerivce.removeOrder(id);
+            if(result)
+            {
+                response.setStatus(HttpServletResponse.SC_OK);
+            } else
+            {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        } else
+        {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+    }
+    @RequestMapping(value = "/getOrderList", method = RequestMethod.GET)
+    public ModelAndView getorderlist(@RequestParam String param,HttpSession hsr)
+    {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null)
+        {
+            if(param!=null) {
+                List<GoodsName> list = orderSerivce.getOrderbyId(Long.parseLong(param)).get(0).getOrderUnitList();
+                ModelMap modelMap = new ModelMap();
+                modelMap.put("list", list);
+                return new ModelAndView("goodsList", modelMap);
+            } else {
+                ModelMap modelMap = new ModelMap();
+                modelMap.put("list",null);
+                return new ModelAndView("goodsList", modelMap);
+            }
+        } else {
             return new ModelAndView("page403");
         }
     }

@@ -142,8 +142,8 @@
                 <label for="shopaddress" >Адрес</label>
                 <input type="text" id="shopaddress" placeholder="Адрес" class="form-control">
                 <br>
-                <label for="shoptn" >Номер телефона</label>
-                <input type="text" id="shoptn" placeholder="Номер телефона" class="form-control">
+                <label for="shoptn" >Номер телефона(Формат XXX-XXX)</label>
+                <input type="tel" id="shoptn" pattern="^[0-9]{3}-[0-9]{3}$" placeholder="Номер телефона" class="form-control">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cleanAddModal()">Отмена</button>
