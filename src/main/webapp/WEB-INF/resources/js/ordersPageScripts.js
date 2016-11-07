@@ -15,6 +15,23 @@ function addRow() {
 }
 
 function addOrder() {
+    var jsonRows=[];
+    $('.rows').each(function (index,element) {
+        jsonRows.push({
+            'name':$($(element).children('.name')).val(),
+            'quantity':$($(element).children('.quantity')).val()
+        })
+    });
+    $.ajax({
+        type:'post',
+        url:'../orders',
+        data:{
+            'orderRows':JSON.stringify(jsonRows)
+        },
+        success:function (a) {
+            alert(a);
+        }
+    })
 
 }
 
