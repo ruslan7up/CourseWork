@@ -28,34 +28,16 @@ public class OrderController {
     private OrderSerivceImpl orderSerivce;
 
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    public ModelAndView viewOrdersPage(HttpSession hsr)
-    {
+    public ModelAndView viewOrdersPage(HttpSession hsr) {
         Account account = (Account) hsr.getAttribute("user");
-        if(account!=null) {
-            return new ModelAndView("orders");
-        } else
-        {
+        if (account != null) {
             ModelMap modelMap = new ModelMap();
-            modelMap.put("authresult","Чтобы получить доступ к этой странице необходимо авторизоваться!");
-            return new ModelAndView("AuthForm",modelMap);
-        }
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public void addOrder(@RequestParam String orderRows, HttpServletResponse response){
-        List<Map<String,String>> ordersList =null;
-        try {
-            ordersList= new ObjectMapper().readValue(orderRows, ArrayList.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if(ordersList==null||orderRows.isEmpty()){
-            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            modelMap.put("orders",orderSerivce.getallOrders());
+            return new ModelAndView("orders",modelMap);
         } else {
-            for(Map<String,String> m : ordersList){
-                System.out.println(m.get("name")+" "+m.get("quantity"));
-            }
-            response.setStatus(HttpServletResponse.SC_OK);
+            ModelMap modelMap = new ModelMap();
+            modelMap.put("authresult", "Чтобы получить доступ к этой странице необходимо авторизоваться!");
+            return new ModelAndView("AuthForm", modelMap);
         }
     }
 }

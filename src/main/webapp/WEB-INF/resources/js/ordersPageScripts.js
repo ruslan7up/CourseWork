@@ -3,7 +3,8 @@
  */
 var goods = [];
 function cleanAddModal() {
-    $('#rows').html("<div style='display: inline-block;'> <input type='text' name='ordergn' placeholder='Название' style='width: 350px' class='form-control' > </div> <div style='display: inline-block'> <input type='number' name='orderquantity' placeholder='Количество' class='form-control'> </div>");
+    $('#rows').html('<input type="text" class="name" name="ordergn" placeholder="Название" style="width: 350px" class="form-control" >' +
+    '<input type="number" class="quantity"  name="orderquantity" placeholder="Количество" class="form-control">');
 }
 
 function showaddModal() {
@@ -26,8 +27,8 @@ function addOrder() {
         })
     });
     $.ajax({
-        type:'post',
-        url:'../orders',
+        type:'get',
+        url:'/table/OrderAdd',
         data:{
             'orderRows':JSON.stringify(jsonRows)
         },
@@ -38,21 +39,42 @@ function addOrder() {
 
 }
 
-
+function getAllOrders() {
+ $.ajax({
+     type:'get',
+     url:'http://localhost:8080/table/orders',
+     success: function (data) {
+         $('#acctable').html(data);
+         $('#id').val("");
+     }
+ })
+}
 function showOrderlist(id) {
     $.ajax({
         type: 'get',
-        url:'http://localhost:8080/table/getOrderList',
+        url: 'http://localhost:8080/table/getOrderList',
         data: {
-            param:id
+            param: id
         },
         success: function (data) {
             $('#orderlisttable').html(data);
+            $('#ordernumber').html('Состав заказа №' + id);
             $('#orderlist').modal('show');
-            $('#ordernumber').html('Состав заказа №'+id);
         },
-        error: function() {
+        error: function () {
             alert('Возникла ошибка при загрузке состава заказа!')
+        }
+    })
+}
+function searchByID() {
+    $.ajax({
+        type:'get',
+        url:'/table/orders',
+        data: {
+            byid:$('#id').val()
+        },
+        success: function (data) {
+            $('#acctable').html(data);
         }
     })
 

@@ -49,14 +49,11 @@ public class OrderSerivceImpl implements OrderService {
     }
 
     @Override
-    public boolean addOrder(List<GoodsName> list) {
+    public boolean addOrder(Orders order) {
         Transaction tr = session.getTransaction();
         try
         {
             tr.begin();
-            Orders order = new Orders();
-            order.setDate(LocalDate.now());
-            order.setOrderUnitList(list);
             session.save(order);
             tr.commit();
             return true;
@@ -87,4 +84,6 @@ public class OrderSerivceImpl implements OrderService {
             return false;
         }
     }
+
+
 }

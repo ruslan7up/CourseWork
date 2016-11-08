@@ -77,14 +77,6 @@
                         </tr>
                         </thead>
                         <tbody id="acctable">
-                        <tr>
-                            <td align="center" style="width: 50px;">
-                                <a class="btn btn-danger" title="Удалить" onclick="alert('developing')"><em class="fa fa-trash" ></em></a>
-                            </td>
-                            <td class="hidden-xs" style="height: 50px;">5343578</td>
-                            <td><button type="button" class="btn btn-info center-block " onclick="alert('developing')">Открыть состав</button></td>
-                            <td>03.11.2016</td>
-                        </tr>
                         <%@include file="ordersTable.jsp"%>
                         </tbody>
                         <thead>
@@ -131,6 +123,33 @@
 </div>
 <!-- Форма удаления Конец -->
 
+
+<!--Форма с составом-->
+<div id="orderlist" class="modal fade" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ordernumber">Состав заказа №</h4>
+            </div>
+            <div class="modal-body" >
+                <table class="table table-bordered">
+                    <thead>
+                    <th>Название товара</th>
+                    <th>Количество</th>
+                    </thead>
+                    <tbody id="orderlisttable">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" >Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Форма с составом конец-->
+
 <!-- Форма добавления Начало-->
 <div id="addModal" class="modal fade" >
     <div class="modal-dialog">
@@ -161,32 +180,6 @@
     </div>
 </div>
 <!-- Форма добавления Конец-->
-
-<%--Форма с составом--%>
-<div id="orderlist" class="modal fade" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="ordernumber">Состав заказа №</h4>
-            </div>
-            <div class="modal-body" >
-                <table class="table table-bordered">
-                    <thead>
-                    <th>Название товара</th>
-                    <th>Количество</th>
-                    </thead>
-                    <tbody id="orderlisttable">
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" >Закрыть</button>
-            </div>
-        </div>
-    </div>
-</div>
-<%--Форма с составом конец--%>
 
 <script>
     $(document).ready(function(){

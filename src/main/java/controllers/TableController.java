@@ -1,5 +1,6 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import data.comparators.byID;
 import data.comparators.byName;
 import data.comparators.byQuantity;
@@ -10,6 +11,7 @@ import data.impl.ShopServiceImpl;
 import domains.Account;
 import domains.Goods;
 import domains.GoodsName;
+import domains.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -375,12 +379,12 @@ public class TableController {
             {
                 ModelMap modelMap = new ModelMap();
                 modelMap.put("orders",orderSerivce.getOrderbyId(Long.parseLong(id)));
-                return new ModelAndView("orders",modelMap);
+                return new ModelAndView("ordersTable",modelMap);
             } else
             {
                 ModelMap modelMap = new ModelMap();
                 modelMap.put("orders", orderSerivce.getallOrders());
-                return new ModelAndView("orders", modelMap);
+                return new ModelAndView("ordersTable", modelMap);
             }
         } else
         {
@@ -388,18 +392,35 @@ public class TableController {
         }
     }
     @RequestMapping(value="/OrderAdd", method = RequestMethod.GET)
-    public void addOrder(@RequestParam Map<String,Object> param, HttpSession hsr, HttpServletResponse response)
-    {
+    public void addOrder(@RequestParam String orderRows, HttpSession hsr,HttpServletResponse response){
         Account account = (Account) hsr.getAttribute("user");
-        if(account!=null)
-        {
-
-        } else
-        {
+        if(account!=null) {
+            List<Map<String, String>> ordersList = null;
+            try {
+                ordersList = new ObjectMapper().readValue(orderRows, ArrayList.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (ordersList == null || orderRows.isEmpty()) {
+                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            } else {
+                Orders order= new Orders();
+                order.setOrderUnitList(new ArrayList<>());
+                order.setDate(LocalDate.now());
+                for (Map<String, String> m : ordersList) {
+                    GoodsName item = new GoodsName();
+                    item.setGoodsname(m.get("name"));
+                    item.setQuantity(Integer.parseInt(m.get("quantity")));
+                    item.setOrder(order);
+                    order.getOrderUnitList().add(item);
+                }
+                orderSerivce.addOrder(order);
+                response.setStatus(HttpServletResponse.SC_OK);
+            }
+        } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
-
     @RequestMapping(value="/OrderDelete", method = RequestMethod.GET)
     public void removeOrder(@RequestParam String param,HttpSession hsr,HttpServletResponse response)
     {
@@ -428,6 +449,7 @@ public class TableController {
         {
             if(param!=null) {
                 List<GoodsName> list = orderSerivce.getOrderbyId(Long.parseLong(param)).get(0).getOrderUnitList();
+                System.out.println(list.size());
                 ModelMap modelMap = new ModelMap();
                 modelMap.put("list", list);
                 return new ModelAndView("goodsList", modelMap);

@@ -11,6 +11,6 @@ import java.util.List;
 public interface OrderService {
     public List<Orders> getallOrders();
     public List<Orders> getOrderbyId(Long id);
-    public boolean addOrder(List<GoodsName> list);
+    public boolean addOrder(Orders order);
     public boolean removeOrder(Long orderid);
 }
