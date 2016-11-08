@@ -1,5 +1,6 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import data.impl.OrderSerivceImpl;
 import domains.Account;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by User on 27.10.2016.
@@ -38,7 +43,19 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.POST)
     public void addOrder(@RequestParam String orderRows, HttpServletResponse response){
-        System.out.println(orderRows);
-        response.setStatus(HttpServletResponse.SC_OK);
+        List<Map<String,String>> ordersList =null;
+        try {
+            ordersList= new ObjectMapper().readValue(orderRows, ArrayList.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(ordersList==null||orderRows.isEmpty()){
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        } else {
+            for(Map<String,String> m : ordersList){
+                System.out.println(m.get("name")+" "+m.get("quantity"));
+            }
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
     }
 }
