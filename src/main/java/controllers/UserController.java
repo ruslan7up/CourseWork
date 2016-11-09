@@ -41,7 +41,7 @@ public class UserController {
                     {
                         hsr.setAttribute("user", account);
                         try {
-                            response.sendRedirect("http://localhost:8080/goods/goodsPanel");
+                            response.sendRedirect("/goods/goodsPanel");
                         } catch (Exception e)
                         {
 
@@ -64,7 +64,7 @@ public class UserController {
             ModelMap modelMap = new ModelMap();
             modelMap.put("goods",goodsService.getAllGoods());
             try {
-                response.sendRedirect("http://localhost:8080/goods/goodsPanel");
+                response.sendRedirect("/goods/goodsPanel");
             } catch (Exception e)
             {
             }
@@ -80,7 +80,7 @@ public class UserController {
             ModelMap modelMap = new ModelMap();
             modelMap.put("goods",goodsService.getAllGoods());
             try {
-                response.sendRedirect("http://localhost:8080/goods/goodsPanel");
+                response.sendRedirect("/goods/goodsPanel");
             } catch (Exception e)
             {
             }

@@ -20,10 +20,12 @@ function addRow() {
 }
 function addOrder() {
     var jsonRows=[];
+    var a;
+    var b;
     $('.rows').each(function (index,element) {
         jsonRows.push({
-            'name':$($(element).children('.name')).val(),
-            'quantity':$($(element).children('.quantity')).val()
+            'name':$.trim($($(element).children('.name')).val().trim()),
+            'quantity':$.trim($($(element).children('.quantity')).val())
         })
     });
     $.ajax({
@@ -35,6 +37,9 @@ function addOrder() {
         success:function (a) {
             $('#addModal').modal('hide');
             getAllOrders();
+        },
+        error: function () {
+            alert('Ошибка! Проверьте правильность ввода данных.');
         }
     })
 
@@ -48,7 +53,7 @@ function showdelmodal(orderid) {
 function deleteOrder() {
     $.ajax({
         type:'get',
-        url:'http://localhost:8080/table/OrderDelete',
+        url:'/table/OrderDelete',
         data: {
             param:id
         },
@@ -61,7 +66,7 @@ function deleteOrder() {
 function getAllOrders() {
  $.ajax({
      type:'get',
-     url:'http://localhost:8080/table/orders',
+     url:'/table/orders',
      success: function (data) {
          $('#acctable').html(data);
          $('#id').val("");
@@ -71,7 +76,7 @@ function getAllOrders() {
 function showOrderlist(id) {
     $.ajax({
         type: 'get',
-        url: 'http://localhost:8080/table/getOrderList',
+        url: '/table/getOrderList',
         data: {
             param: id
         },

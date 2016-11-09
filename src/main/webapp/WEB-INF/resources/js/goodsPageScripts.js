@@ -3,7 +3,7 @@
         $.ajax(
                 {
                     type:'get',
-                    url:'http://localhost:8080/table/goods',
+                    url:'/table/goods',
                     data :
                     {
                       sort:$('#sort').val()
@@ -21,7 +21,7 @@
         $.ajax(
                 {
                     type:'get',
-                    url:'http://localhost:8080/table/goods',
+                    url:'/table/goods',
                     data:{
                         sort:type
                     },
@@ -36,7 +36,7 @@
              $.ajax(
                  {
                      type: 'get',
-                     url: 'http://localhost:8080/table/goods',
+                     url: '/table/goods',
                      data: {
                          byid: id
                      },
@@ -53,7 +53,7 @@
              $.ajax(
                  {
                      type: 'get',
-                     url: 'http://localhost:8080/table/goods',
+                     url: '/table/goods',
                      data: {
                          byname: name
                      },
@@ -68,7 +68,7 @@
      {
          $.ajax({
              type:'get',
-             url:'http://localhost:8080/table/goodsRemove',
+             url:'/table/goodsRemove',
              data:
              {
                  param:vc
@@ -84,7 +84,7 @@
          $.ajax(
                  {
                      type:'get',
-                     url:'http://localhost:8080/table/goodsAdd',
+                     url:'/table/goodsAdd',
                      data:
                      {
                          vc: $('#goodsvc').val(),
@@ -110,7 +110,7 @@
          $.ajax(
              {
                  type:'get',
-                 url:'http://localhost:8080/table/goodsUpdate',
+                 url:'/table/goodsUpdate',
                  data:
                  {
                      vc: $('#egoodsvc').val(),

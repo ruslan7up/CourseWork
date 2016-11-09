@@ -40,10 +40,10 @@
                 </div>
                 <hr>
                 <ul class="pager">
-                    <li><a href="">&larr; Страница 1</a></li>
-                    <li><a href="">Страница 2</a></li>
-                    <li><a href="">Страница 3</a></li>
-                    <li><a href="">Страница 4 &rarr;</a></li>
+                    <li><a href="/goods/goodsPanel">Склад</a></li>
+                    <li><a href="/orders/info">Заказы</a></li>
+                    <li><a href="/shop/info">Магаизны</a></li>
+                    <li><a href="/admin/allPanels">Сотрудники</a></li>
                 </ul>
             </div>
         </div>

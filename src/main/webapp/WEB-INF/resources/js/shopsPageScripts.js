@@ -7,7 +7,7 @@ function getallshops()
     $.ajax(
         {
             type:'get',
-            url:'http://localhost:8080/table/shops',
+            url:'/table/shops',
             data :
             {
 
@@ -24,7 +24,7 @@ function addshop()
     $.ajax(
         {
             type:'get',
-            url:'http://localhost:8080/table/shopsAdd',
+            url:'/table/shopsAdd',
             data: {
                 id:$('#shopid').val(),
                 shopname:$('#shopname').val(),
@@ -46,7 +46,7 @@ function searchByID() {
     $.ajax(
         {
             type:'get',
-            url:'http://localhost:8080/table/shops',
+            url:'/table/shops',
             data:
             {
                 byid:$('#id').val()
@@ -62,7 +62,7 @@ function searchByName() {
     $.ajax(
         {
             type:'get',
-            url:'http://localhost:8080/table/shops',
+            url:'/table/shops',
             data:
             {
                 byname:$('#name').val()
@@ -94,7 +94,7 @@ function removeShop() {
     $.ajax(
         {
             type:'get',
-            url:'http://localhost:8080/table/shopDelete',
+            url:'/table/shopDelete',
             data: {
                 param:selected
             },

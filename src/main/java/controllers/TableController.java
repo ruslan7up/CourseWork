@@ -404,6 +404,15 @@ public class TableController {
             if (ordersList == null || orderRows.isEmpty()) {
                 response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             } else {
+                for (Map<String, String> m : ordersList) {
+                    String name = m.get("name");
+                    String quantity = m.get("quantity");
+                    if(name.isEmpty() || quantity.isEmpty())
+                    {
+                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                        return;
+                    }
+                }
                 Orders order= new Orders();
                 order.setOrderUnitList(new ArrayList<>());
                 order.setDate(LocalDate.now());

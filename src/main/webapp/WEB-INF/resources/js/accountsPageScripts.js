@@ -23,7 +23,7 @@ function showaddModal() {
 function getAllUsers() {
     $.ajax({
         type:'get',
-            url:'http://localhost:8080/table/users',
+            url:'/table/users',
         success: function (data) {
             $('#acctable').html(data);
             $('#id').val("");
@@ -36,7 +36,7 @@ function addAcc()
     $.ajax(
         {
             type:'get',
-            url:'http://localhost:8080/table/userAdd',
+            url:'/table/userAdd',
             data:
             {
                 fn: $('#accfn').val(),
@@ -59,7 +59,7 @@ function removeAcc()
     $.ajax(
         {
             type:'get',
-            url:'http://localhost:8080/table/userRemove',
+            url:'/table/userRemove',
             data:
             {
                 param: selectedAccount
@@ -78,7 +78,7 @@ function searchByID() {
         $.ajax(
             {
                 type: 'get',
-                url: 'http://localhost:8080/table/users',
+                url: '/table/users',
                 data: {
                     byid: id
                 },
@@ -96,7 +96,7 @@ function searchByLogin() {
         $.ajax(
             {
                 type: 'get',
-                url: 'http://localhost:8080/table/users',
+                url: '/table/users',
                 data: {
                     byname: login
                 },
