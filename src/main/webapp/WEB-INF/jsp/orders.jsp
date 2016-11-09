@@ -165,8 +165,8 @@
                 <label>Состав</label> <br>
                 <div id="rows">
                     <div class="rows">
-                        <input type="text" class="name" name="ordergn" placeholder="Название" style="width: 350px" class="form-control" >
-                        <input type="number" class="quantity"  name="orderquantity" placeholder="Количество" class="form-control">
+                        <input type="text" class="name form-control" name="ordergn" placeholder="Название" style="width: 350px" >
+                        <input type="number" class="quantity form-control"  name="orderquantity" placeholder="Количество" >
                     </div>
                     <div/>
                 </div>

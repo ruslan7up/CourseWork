@@ -12,7 +12,7 @@ function showaddModal() {
 }
 
 function addRow() {
-    $('#rows').append("<br><br>" +
+    $('#rows').append("<br>" +
         "<div class='rows'>" +
         "<input type='text'  class='name' name='ordergn' placeholder='Название' style='width: 350px' class='form-control' > " +
         "<input type='number' class='quantity' name='orderquantity'  placeholder='Количество' class='form-control'> </div>"

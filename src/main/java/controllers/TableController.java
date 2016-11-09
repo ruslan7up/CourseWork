@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import data.comparators.byID;
 import data.comparators.byName;
 import data.comparators.byQuantity;
-import data.impl.AccountServiceImpl;
-import data.impl.GoodsServiceImpl;
-import data.impl.OrderSerivceImpl;
-import data.impl.ShopServiceImpl;
+import data.impl.*;
 import domains.Account;
 import domains.Goods;
 import domains.GoodsName;
@@ -43,6 +40,9 @@ public class TableController {
     private ShopServiceImpl shopService;
     @Autowired
     private OrderSerivceImpl orderSerivce;
+    @Autowired
+    private OrderItemServiceImpl itemService;
+
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ModelAndView getUserTable(@RequestParam Map<String,Object> param, HttpSession hsr)
     {
@@ -413,6 +413,7 @@ public class TableController {
                     item.setQuantity(Integer.parseInt(m.get("quantity")));
                     item.setOrder(order);
                     order.getOrderUnitList().add(item);
+                    itemService.addItem(item);
                 }
                 orderSerivce.addOrder(order);
                 response.setStatus(HttpServletResponse.SC_OK);
