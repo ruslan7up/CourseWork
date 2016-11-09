@@ -1,10 +1,10 @@
 /**
  * Created by User on 27.10.2016.
  */
-var goods = [];
+var id;
 function cleanAddModal() {
-    $('#rows').html('<input type="text" class="name" name="ordergn" placeholder="Название" style="width: 350px" class="form-control" >' +
-    '<input type="number" class="quantity"  name="orderquantity" placeholder="Количество" class="form-control">');
+    $('#rows').html('<div class="rows"><input type="text" class="name form-control" name="ordergn" placeholder="Название" style="width: 350px" >' +
+    '<input type="number" class="quantity form-control"  name="orderquantity" placeholder="Количество" ></div>');
 }
 
 function showaddModal() {
@@ -14,8 +14,8 @@ function showaddModal() {
 function addRow() {
     $('#rows').append("<br>" +
         "<div class='rows'>" +
-        "<input type='text'  class='name' name='ordergn' placeholder='Название' style='width: 350px' class='form-control' > " +
-        "<input type='number' class='quantity' name='orderquantity'  placeholder='Количество' class='form-control'> </div>"
+        "<input type='text'  class='name form-control' name='ordergn' placeholder='Название' style='width: 350px' > " +
+        "<input type='number' class='quantity form-control' name='orderquantity'  placeholder='Количество'> </div>"
     );
 }
 function addOrder() {
@@ -33,12 +33,31 @@ function addOrder() {
             'orderRows':JSON.stringify(jsonRows)
         },
         success:function (a) {
-            alert(a);
+            $('#addModal').modal('hide');
+            getAllOrders();
         }
     })
 
 }
 
+function showdelmodal(orderid) {
+    id=orderid;
+    $('#deleteModal').modal('show');
+}
+
+function deleteOrder() {
+    $.ajax({
+        type:'get',
+        url:'http://localhost:8080/table/OrderDelete',
+        data: {
+            param:id
+        },
+        success: function (data) {
+            $('#deleteModal').modal('hide');
+            getAllOrders();
+        }
+    })
+}
 function getAllOrders() {
  $.ajax({
      type:'get',

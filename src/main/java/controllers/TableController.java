@@ -407,15 +407,16 @@ public class TableController {
                 Orders order= new Orders();
                 order.setOrderUnitList(new ArrayList<>());
                 order.setDate(LocalDate.now());
+                orderSerivce.addOrder(order);
                 for (Map<String, String> m : ordersList) {
                     GoodsName item = new GoodsName();
                     item.setGoodsname(m.get("name"));
                     item.setQuantity(Integer.parseInt(m.get("quantity")));
                     item.setOrder(order);
-                    order.getOrderUnitList().add(item);
                     itemService.addItem(item);
+                    order.getOrderUnitList().add(item);
+
                 }
-                orderSerivce.addOrder(order);
                 response.setStatus(HttpServletResponse.SC_OK);
             }
         } else {
@@ -429,8 +430,9 @@ public class TableController {
         if(account!=null)
         {
             long id = Long.parseLong(param);
+            boolean gnresult = itemService.removeItemsByOrderID(id);
             boolean result = orderSerivce.removeOrder(id);
-            if(result)
+            if(gnresult || result)
             {
                 response.setStatus(HttpServletResponse.SC_OK);
             } else

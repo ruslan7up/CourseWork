@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="shortcut icon" href="/resources/images/icon1.ico" type="image/ico">
+    <link rel="shortcut icon" href="/resources/images/icon4.ico" type="image/ico">
     <script scr="/resources/js/jquery-3.1.0.min.js"></script>
     <title>Заказы (PRE-ALPHA)</title> <!-- Заголовок страницы -->
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
@@ -163,7 +163,7 @@
                 <input type="number" min="1" id="orderid" disabled placeholder="Сгенерируется автоматически" class="form-control">
                 <br>
                 <label>Состав</label> <br>
-                <div id="rows">
+                <div id="rows" class="form-inline">
                     <div class="rows">
                         <input type="text" class="name form-control" name="ordergn" placeholder="Название" style="width: 350px" >
                         <input type="number" class="quantity form-control"  name="orderquantity" placeholder="Количество" >
@@ -187,6 +187,9 @@
             cleanAddModal();
         });
     });
+    $(document).ready(function () {
+
+    })
 </script>
 
 
