@@ -193,7 +193,6 @@
                         <input type="number" min="1" class="name form-control" name="ordergn" placeholder="Артикул" style="width: 350px" >
                         <input type="number" min="1" class="quantity form-control"  name="orderquantity" placeholder="Количество" >
                     </div>
-                    <div/>
                 </div>
             </div>
             <div class="modal-footer">

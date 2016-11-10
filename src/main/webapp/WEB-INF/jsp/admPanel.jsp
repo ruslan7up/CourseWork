@@ -11,7 +11,7 @@
 <head>
     <link rel="shortcut icon" href="/resources/images/icon1.ico" type="image/ico">
     <script scr="/resources/js/jquery-3.1.0.min.js"></script>
-    <title>Сотрудники (BETA)</title> <!-- Заголовок страницы -->
+    <title>Сотрудники</title> <!-- Заголовок страницы -->
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <script src="/resources/js/jquery-3.1.0.min.js"></script>

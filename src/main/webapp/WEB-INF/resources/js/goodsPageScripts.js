@@ -168,7 +168,7 @@
      }
 
      function calculatewp() {
-         $('#goodswp').val(Math.round(parseFloat($('#goodsrp').val())*0.9).toFixed(2));
+         $('#goodswp').val((parseFloat($('#goodsrp').val())*0.9).toFixed(2));
      }
 
      function ecalculatewp() {
