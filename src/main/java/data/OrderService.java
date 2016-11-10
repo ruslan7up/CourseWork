@@ -13,4 +13,5 @@ public interface OrderService {
     public List<Orders> getOrderbyId(Long id);
     public boolean addOrder(Orders order);
     public boolean removeOrder(Long orderid);
+    public boolean editOrder(Orders order);
 }

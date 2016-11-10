@@ -407,7 +407,7 @@ public class TableController {
                 for (Map<String, String> m : ordersList) {
                     String name = m.get("name");
                     String quantity = m.get("quantity");
-                    if(name.isEmpty() || quantity.isEmpty())
+                    if(name.isEmpty() || quantity.isEmpty() || goodsService.getGoodsByID(Long.parseLong(m.get("name")))==null)
                     {
                         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                         return;
@@ -416,10 +416,11 @@ public class TableController {
                 Orders order= new Orders();
                 order.setOrderUnitList(new ArrayList<>());
                 order.setDate(LocalDate.now());
+                order.setStatus("Создан");
                 orderSerivce.addOrder(order);
                 for (Map<String, String> m : ordersList) {
                     GoodsName item = new GoodsName();
-                    item.setGoodsname(m.get("name"));
+                    item.setGoodsname(goodsService.getGoodsByID(Long.parseLong(m.get("name"))).get(0).getName());
                     item.setQuantity(Integer.parseInt(m.get("quantity")));
                     item.setOrder(order);
                     itemService.addItem(item);
@@ -461,7 +462,6 @@ public class TableController {
         {
             if(param!=null) {
                 List<GoodsName> list = orderSerivce.getOrderbyId(Long.parseLong(param)).get(0).getOrderUnitList();
-                System.out.println(list.size());
                 ModelMap modelMap = new ModelMap();
                 modelMap.put("list", list);
                 return new ModelAndView("goodsList", modelMap);
@@ -472,6 +472,27 @@ public class TableController {
             }
         } else {
             return new ModelAndView("page403");
+        }
+    }
+    @RequestMapping(value = "/setNewStatus", method = RequestMethod.GET)
+    public void setstatus(@RequestParam Map<String,Object> param, HttpSession hsr,HttpServletResponse response)
+    {
+        Account account = (Account) hsr.getAttribute("user");
+        if(account!=null){
+            Long orderid = Long.parseLong((String) param.get("orderid"));
+            String newstatus = (String) param.get("status");
+            Orders order = orderSerivce.getOrderbyId(orderid).get(0);
+            order.setStatus(newstatus);
+            boolean result = orderSerivce.editOrder(order);
+            if(result){
+                response.setStatus(HttpServletResponse.SC_OK);
+            } else
+            {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        } else
+        {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
 }

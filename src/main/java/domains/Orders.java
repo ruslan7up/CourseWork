@@ -2,6 +2,8 @@ package domains;
 
 
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -15,6 +17,10 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
+    @NotEmpty
+    private String status;
+
+
     @OneToMany(mappedBy = "order")
     private List<GoodsName> orderUnitList;
     @NotNull
@@ -50,4 +56,12 @@ public class Orders {
     public void setOrderUnitList(List<GoodsName> orderUnitList) {
         this.orderUnitList = orderUnitList;
     }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

@@ -72,6 +72,7 @@
                         <tr>
                             <th><em class="fa fa-cog" ></em></th>
                             <th class="hidden-xs">Номер</th>
+                            <th>Статус</th>
                             <th>Состав</th>
                             <th >Дата</th>
                         </tr>
@@ -83,6 +84,7 @@
                         <tr>
                             <th><em class="fa fa-cog" ></em></th>
                             <th class="hidden-xs">Номер</th>
+                            <th>Статус</th>
                             <th >Состав</th>
                             <th>Дата</th>
 
@@ -123,7 +125,30 @@
 </div>
 <!-- Форма удаления Конец -->
 
-
+<!--Форма для изменения статуса-->
+<div id="statusEditModal" class="modal fade" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="statusid">Изменить статус заказа №</h4>
+            </div>
+            <div class="modal-body">
+                <select class="form-control" id="orderstatus">
+                    <option disabled>Создан</option>
+                    <option>Выполняется</option>
+                    <option>Выполнен</option>
+                    <option>Отменен</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" >Закрыть</button>
+                <button type="button" class="btn btn-success" onclick="setStatus()">Изменить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Форма для изменения статуса конец-->
 <!--Форма с составом-->
 <div id="orderlist" class="modal fade" >
     <div class="modal-dialog">
@@ -165,8 +190,8 @@
                 <label>Состав</label> <br>
                 <div id="rows" class="form-inline">
                     <div class="rows">
-                        <input type="text" class="name form-control" name="ordergn" placeholder="Название" style="width: 350px" >
-                        <input type="number" class="quantity form-control"  name="orderquantity" placeholder="Количество" >
+                        <input type="number" min="1" class="name form-control" name="ordergn" placeholder="Артикул" style="width: 350px" >
+                        <input type="number" min="1" class="quantity form-control"  name="orderquantity" placeholder="Количество" >
                     </div>
                     <div/>
                 </div>
@@ -187,9 +212,6 @@
             cleanAddModal();
         });
     });
-    $(document).ready(function () {
-
-    })
 </script>
 
 

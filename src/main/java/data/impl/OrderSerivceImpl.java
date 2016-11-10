@@ -1,7 +1,6 @@
 package data.impl;
 
 import data.OrderService;
-import domains.GoodsName;
 import domains.Orders;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,7 +9,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -75,6 +73,23 @@ public class OrderSerivceImpl implements OrderService {
             Query query = session.createQuery("DELETE Orders WHERE id=:OrderID");
             query.setParameter("OrderID",orderid);
             query.executeUpdate();
+            tr.commit();
+            return true;
+        } catch (Exception e)
+        {
+            tr.rollback();
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean editOrder(Orders order) {
+        Transaction tr = session.getTransaction();
+        try
+        {
+            tr.begin();
+            session.merge(order);
             tr.commit();
             return true;
         } catch (Exception e)

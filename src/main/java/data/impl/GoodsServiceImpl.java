@@ -1,7 +1,6 @@
 package data.impl;
 
 import data.GoodsService;
-import domains.Account;
 import domains.Goods;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,7 +8,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -54,7 +52,10 @@ public class GoodsServiceImpl implements GoodsService{
     public List<Goods> getAllGoods() {
         Query query = session.createQuery("FROM Goods");
         List<Goods> list = query.list();
-        return list;
+        if(!list.isEmpty()) {
+            return list;
+        }
+        return null;
     }
 
     @Override

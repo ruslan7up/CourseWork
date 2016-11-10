@@ -2,9 +2,31 @@
  * Created by User on 27.10.2016.
  */
 var id;
+function showStatusEditModal(orderid,currentstatus) {
+    id=orderid;
+    $('#statusid').val('Изменить статус заказа №'+orderid);
+    $('#orderstatus').val(currentstatus);
+    $('#statusEditModal').modal('show');
+
+}
+
+function setStatus() {
+    $.ajax({
+        type:'get',
+        url:'/table/setNewStatus',
+        data: {
+            orderid:id,
+            status:$('#orderstatus option:selected').val()
+        },
+        success: function () {
+            $('#statusEditModal').modal('hide');
+            getAllOrders();
+        }
+    })
+}
 function cleanAddModal() {
-    $('#rows').html('<div class="rows"><input type="text" class="name form-control" name="ordergn" placeholder="Название" style="width: 350px" >' +
-    '<input type="number" class="quantity form-control"  name="orderquantity" placeholder="Количество" ></div>');
+    $('#rows').html('<div class="rows"><input type="number" min="1" class="name form-control" name="ordergn" placeholder="Артикул" style="width: 350px" >' +
+    '<input type="number" min="1" class="quantity form-control"  name="orderquantity" placeholder="Количество" ></div>');
 }
 
 function showaddModal() {
@@ -14,8 +36,8 @@ function showaddModal() {
 function addRow() {
     $('#rows').append("<br>" +
         "<div class='rows'>" +
-        "<input type='text'  class='name form-control' name='ordergn' placeholder='Название' style='width: 350px' > " +
-        "<input type='number' class='quantity form-control' name='orderquantity'  placeholder='Количество'> </div>"
+        "<input type='number' min='1'  class='name form-control' name='ordergn' placeholder='Артикул' style='width: 350px' > " +
+        "<input type='number' min='1' class='quantity form-control' name='orderquantity'  placeholder='Количество'> </div>"
     );
 }
 function addOrder() {
