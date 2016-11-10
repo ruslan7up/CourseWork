@@ -4,7 +4,7 @@
 var id;
 function showStatusEditModal(orderid,currentstatus) {
     id=orderid;
-    $('#statusid').val('Изменить статус заказа №'+orderid);
+    $('#statusid').html('Изменить статус заказа №'+orderid);
     $('#orderstatus').val(currentstatus);
     $('#statusEditModal').modal('show');
 

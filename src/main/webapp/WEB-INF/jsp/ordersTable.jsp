@@ -15,7 +15,7 @@
 <c:forEach items="${orders}" var="order">
     <tr>
         <td align="center" style="width: 100px;">
-            <a class="btn btn-default" title="Изменить статус" onclick="showStatusEditModal(${order.getId()},'${order.getStatus()}')"><em class="fa fa-pencil"></em></a>
+            <a class="btn btn-default" title="Изменить статус" onclick="showStatusEditModal(${order.getId()},'${order.getStatus()}')"><em class="glyphicon glyphicon-pushpin"></em></a>
             <a class="btn btn-danger" title="Удалить" onclick="showdelmodal(${order.getId()})"><em class="fa fa-trash" ></em></a>
         </td>
         <td class="hidden-xs" style="height: 50px;">${order.getId()}</td>

@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Entity
 public class Orders {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Id
     private Long id;
     @NotEmpty
