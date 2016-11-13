@@ -9,6 +9,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,6 +28,7 @@ public class OrderSerivceImpl implements OrderService {
     public List<Orders> getallOrders() {
         Query query = session.createQuery("FROM Orders");
         List<Orders> ordersList = query.list();
+        Collections.reverse(ordersList);
         if(!ordersList.isEmpty())
         {
             return ordersList;
